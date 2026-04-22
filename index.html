@@ -33,148 +33,81 @@
   }
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Manrope', sans-serif;
-    background: var(--black);
-    color: var(--white);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
+  body { font-family: 'Manrope', sans-serif; background: var(--black); color: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
   a { color: inherit; text-decoration: none; }
   img { max-width: 100%; display: block; }
   ul { list-style: none; }
 
-  .nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    height: var(--nav-height);
-    background: rgba(0,0,0,0.88);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    z-index: 1000;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 clamp(1.2rem, 4vw, 3rem);
-  }
+  .nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-height); background: rgba(0,0,0,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(1.2rem, 4vw, 3rem); }
   .nav-logo img { height: 48px; }
   .nav-links { display: flex; gap: 0.2rem; align-items: center; }
-  .nav-links a {
-    padding: 0.55rem 0.85rem; border-radius: 6px;
-    font-size: 0.85rem; font-weight: 600;
-    color: var(--gray); letter-spacing: 0.3px;
-    transition: color var(--transition), background var(--transition);
-  }
+  .nav-links a { padding: 0.55rem 0.85rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; color: var(--gray); letter-spacing: 0.3px; transition: color var(--transition), background var(--transition); }
   .nav-links a:hover { color: var(--white); background: var(--black-card); }
   .nav-links .dropdown { position: relative; }
   .nav-links .dropdown > a::after { content: '▾'; margin-left: 4px; font-size: 0.65rem; opacity: 0.4; }
-  .nav-links .dropdown-menu {
-    position: absolute; top: calc(100% + 4px); left: 0;
-    background: var(--black-card); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 0.4rem 0; min-width: 210px;
-    opacity: 0; visibility: hidden; transform: translateY(8px);
-    transition: all var(--transition); box-shadow: 0 16px 48px rgba(0,0,0,0.6);
-  }
+  .nav-links .dropdown-menu { position: absolute; top: calc(100% + 4px); left: 0; background: var(--black-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.4rem 0; min-width: 210px; opacity: 0; visibility: hidden; transform: translateY(8px); transition: all var(--transition); box-shadow: 0 16px 48px rgba(0,0,0,0.6); }
   .nav-links .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
   .dropdown-menu a { display: block; padding: 0.6rem 1.1rem; font-size: 0.84rem; border-radius: 0; }
   .dropdown-menu a:hover { background: var(--black-card-hover); color: var(--red); }
-  .btn-join {
-    background: var(--red) !important; color: var(--white) !important;
-    font-weight: 700; border-radius: 6px; padding: 0.55rem 1.2rem !important;
-    letter-spacing: 0.5px; text-transform: uppercase; font-size: 0.78rem !important;
-    transition: background var(--transition), transform 0.15s, box-shadow var(--transition);
-  }
+  .btn-join { background: var(--red) !important; color: var(--white) !important; font-weight: 700; border-radius: 6px; padding: 0.55rem 1.2rem !important; letter-spacing: 0.5px; text-transform: uppercase; font-size: 0.78rem !important; transition: background var(--transition), transform 0.15s, box-shadow var(--transition); }
   .btn-join:hover { background: var(--red-dark) !important; transform: translateY(-1px); box-shadow: 0 4px 20px var(--red-glow); }
   .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
   .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--white); margin: 5px 0; border-radius: 2px; transition: var(--transition); }
 
-  .hero {
-    position: relative; min-height: 100vh;
-    display: flex; align-items: center; justify-content: center;
-    text-align: center; overflow: hidden;
-  }
+  .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
   .hero-slides { position: absolute; inset: 0; }
-  .hero-slide {
-    position: absolute; inset: 0;
-    background-size: cover; background-position: center;
-    opacity: 0; transition: opacity 1.4s ease;
-  }
+  .hero-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.4s ease; }
   .hero-slide.active { opacity: 1; }
-  .hero-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.7) 80%, rgba(0,0,0,1) 100%);
-  }
-  .hero-content {
-    position: relative; z-index: 2; max-width: 800px; padding: 0 1.5rem;
-    animation: heroIn 1.2s ease-out 0.2s both;
-  }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.7) 80%, rgba(0,0,0,1) 100%); }
+  .hero-content { position: relative; z-index: 2; max-width: 800px; padding: 0 1.5rem; animation: heroIn 1.2s ease-out 0.2s both; }
   @keyframes heroIn { from { opacity: 0; transform: translateY(40px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
   .hero-logo { width: 180px; margin: 0 auto 2rem; filter: drop-shadow(0 4px 24px rgba(0,0,0,0.5)); }
-  .hero h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3rem, 8vw, 5.5rem); line-height: 1;
-    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.2rem;
-  }
+  .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 8vw, 5.5rem); line-height: 1; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.2rem; }
   .hero h1 .accent { color: var(--red); }
+  .hero .hero-since { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 4px; color: var(--gray); text-transform: uppercase; margin-bottom: 1.5rem; }
   .hero p { font-size: 1.05rem; color: var(--white-dim); margin-bottom: 2.5rem; max-width: 560px; margin-inline: auto; opacity: 0.85; }
   .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-  .hero-btns a {
-    padding: 0.85rem 2rem; border-radius: 6px; font-weight: 700;
-    font-size: 0.88rem; letter-spacing: 0.8px; text-transform: uppercase;
-    transition: all var(--transition);
-  }
+  .hero-btns a { padding: 0.85rem 2rem; border-radius: 6px; font-weight: 700; font-size: 0.88rem; letter-spacing: 0.8px; text-transform: uppercase; transition: all var(--transition); }
   .hero-btns .primary { background: var(--red); color: var(--white); box-shadow: 0 4px 24px var(--red-glow); }
   .hero-btns .primary:hover { background: var(--red-dark); transform: translateY(-2px); }
   .hero-btns .secondary { border: 2px solid var(--white); color: var(--white); }
   .hero-btns .secondary:hover { background: var(--white); color: var(--black); }
-  .hero-dots {
-    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
-    display: flex; gap: 0.6rem; z-index: 3;
-  }
-  .hero-dots button {
-    width: 10px; height: 10px; border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.3); background: transparent;
-    cursor: pointer; transition: all var(--transition); padding: 0;
-  }
+  .hero-dots { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.6rem; z-index: 3; }
+  .hero-dots button { width: 10px; height: 10px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.3); background: transparent; cursor: pointer; transition: all var(--transition); padding: 0; }
   .hero-dots button.active { background: var(--red); border-color: var(--red); transform: scale(1.3); }
   .red-bar { height: 4px; background: var(--red); width: 100%; }
 
   section { padding: 6rem clamp(1.2rem, 4vw, 3rem); }
   .section-inner { max-width: var(--max-w); margin: 0 auto; }
-  .section-label {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 0.9rem; letter-spacing: 4px; text-transform: uppercase; color: var(--red); margin-bottom: 0.5rem;
-  }
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2rem, 5vw, 3rem); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem;
-  }
+  .section-label { font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; letter-spacing: 4px; text-transform: uppercase; color: var(--red); margin-bottom: 0.5rem; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3rem); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem; }
   .section-subtitle { color: var(--gray); max-width: 620px; font-size: 0.95rem; margin-bottom: 3.5rem; }
 
   .about-section { background: var(--black-soft); }
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
   .about-text p { color: var(--white-dim); margin-bottom: 1.2rem; font-size: 0.95rem; }
-  .about-text .highlight {
-    border-left: 3px solid var(--red); padding-left: 1.2rem;
-    color: var(--white); font-weight: 600; font-size: 1rem; margin: 1.8rem 0;
-  }
+  .about-text .highlight { border-left: 3px solid var(--red); padding-left: 1.2rem; color: var(--white); font-weight: 600; font-size: 1rem; margin: 1.8rem 0; }
   .about-img { border-radius: var(--radius); width: 100%; aspect-ratio: 3/2; object-fit: cover; border: 1px solid var(--border); }
   .stat-row { display: flex; gap: 2.5rem; margin-top: 2rem; }
   .stat h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; color: var(--red); line-height: 1; }
   .stat p { font-size: 0.8rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+  .ssaf-badge { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1.5rem; padding: 0.7rem 1.2rem; background: var(--black-card); border: 1px solid var(--border); border-radius: 6px; font-size: 0.8rem; color: var(--gray); }
+  .ssaf-badge img { height: 28px; opacity: 0.8; }
+
+  /* Professional / Academic */
+  .pro-section { background: var(--black); }
+  .pro-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+  .pro-card { background: var(--black-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; transition: all var(--transition); }
+  .pro-card:hover { border-color: var(--red); transform: translateY(-3px); box-shadow: 0 6px 24px var(--red-glow); }
+  .pro-card .pro-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+  .pro-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 1px; margin-bottom: 0.5rem; }
+  .pro-card p { font-size: 0.85rem; color: var(--gray); line-height: 1.55; }
 
   .events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
-  .event-card {
-    background: var(--black-card); border-radius: var(--radius);
-    overflow: hidden; border: 1px solid var(--border);
-    transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
-  }
+  .event-card { background: var(--black-card); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition); }
   .event-card:hover { transform: translateY(-5px); border-color: var(--red); box-shadow: 0 8px 32px var(--red-glow); }
   .event-card-img { height: 200px; background-size: cover; background-position: center; position: relative; }
-  .event-card-img .tag {
-    position: absolute; top: 0.8rem; left: 0.8rem;
-    background: var(--red); color: var(--white);
-    font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
-    padding: 0.3rem 0.7rem; border-radius: 4px; letter-spacing: 1.5px;
-  }
+  .event-card-img .tag { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--red); color: var(--white); font-size: 0.65rem; font-weight: 800; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 4px; letter-spacing: 1.5px; }
   .event-card-body { padding: 1.4rem; }
   .event-card-body h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 1px; margin-bottom: 0.4rem; }
   .event-card-body p { font-size: 0.88rem; color: var(--gray); line-height: 1.55; }
@@ -186,23 +119,13 @@
   .sponsors-section { background: var(--black-soft); }
   .sponsor-tier { margin-bottom: 3.5rem; }
   .sponsor-tier:last-child { margin-bottom: 0; }
-  .tier-label {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase;
-    margin-bottom: 1.5rem; text-align: center;
-    display: flex; align-items: center; gap: 1.5rem;
-  }
+  .tier-label { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.5rem; text-align: center; display: flex; align-items: center; gap: 1.5rem; }
   .tier-label::before, .tier-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
   .tier-label.gold { color: #f0c040; }
   .tier-label.silver { color: #b0b8c4; }
   .tier-label.bronze { color: #c88a5a; }
   .sponsor-grid { display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; justify-content: center; }
-  .sponsor-card {
-    background: var(--black-card); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 2rem 2.5rem;
-    display: flex; align-items: center; justify-content: center;
-    transition: all var(--transition); min-width: 180px;
-  }
+  .sponsor-card { background: var(--black-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem 2.5rem; display: flex; align-items: center; justify-content: center; transition: all var(--transition); min-width: 180px; }
   .sponsor-card:hover { border-color: var(--red); transform: translateY(-3px); box-shadow: 0 6px 24px rgba(0,0,0,0.4); }
   .sponsor-card.gold { min-height: 120px; padding: 2.5rem 3rem; }
   .sponsor-card.silver { min-height: 100px; }
@@ -210,66 +133,33 @@
   .sponsor-placeholder { color: var(--gray); font-weight: 700; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
   .sponsor-card.gold .sponsor-placeholder { font-size: 1.2rem; }
   .sponsor-card.bronze .sponsor-placeholder { font-size: 0.85rem; }
-  .sponsor-cta {
-    margin-top: 4rem; text-align: center;
-    background: var(--black-card); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 3rem 2rem;
-  }
+  .sponsor-cta { margin-top: 4rem; text-align: center; background: var(--black-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 3rem 2rem; }
   .sponsor-cta h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.8rem; }
   .sponsor-cta p { color: var(--gray); max-width: 500px; margin: 0 auto 1.8rem; font-size: 0.92rem; }
-  .sponsor-cta-btn {
-    display: inline-block; padding: 0.8rem 2rem; border-radius: 6px;
-    background: var(--red); color: var(--white);
-    font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;
-    transition: all var(--transition);
-  }
+  .sponsor-cta-btn { display: inline-block; padding: 0.8rem 2rem; border-radius: 6px; background: var(--red); color: var(--white); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: all var(--transition); }
   .sponsor-cta-btn:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 4px 20px var(--red-glow); }
 
-  .cta-section {
-    background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 50%, #e8282f 100%);
-    text-align: center; position: relative; overflow: hidden;
-  }
-  .cta-section::before {
-    content: ''; position: absolute; inset: 0;
-    background: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(0,0,0,0.05) 40px, rgba(0,0,0,0.05) 80px);
-  }
+  .cta-section { background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 50%, #e8282f 100%); text-align: center; position: relative; overflow: hidden; }
+  .cta-section::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(0,0,0,0.05) 40px, rgba(0,0,0,0.05) 80px); }
   .cta-content { position: relative; z-index: 1; }
   .cta-content h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 5vw, 3.5rem); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem; }
   .cta-content p { font-size: 1.05rem; max-width: 520px; margin: 0 auto 2rem; opacity: 0.9; }
-  .cta-btn {
-    display: inline-block; padding: 0.9rem 2.5rem; border-radius: 6px;
-    background: var(--white); color: var(--red);
-    font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;
-    transition: all var(--transition);
-  }
+  .cta-btn { display: inline-block; padding: 0.9rem 2.5rem; border-radius: 6px; background: var(--white); color: var(--red); font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: all var(--transition); }
   .cta-btn:hover { background: var(--black); color: var(--white); transform: translateY(-2px); }
 
   .contact-section { background: var(--black-soft); }
   .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
   .contact-item { display: flex; gap: 1rem; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--border); }
-  .contact-item .icon {
-    width: 44px; height: 44px; border-radius: 50%;
-    background: var(--black-card); border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;
-  }
+  .contact-item .icon { width: 44px; height: 44px; border-radius: 50%; background: var(--black-card); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
   .contact-item .label { font-size: 0.75rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
   .contact-item .value { font-size: 0.92rem; color: var(--white-dim); margin-top: 2px; }
   .contact-item .value a { color: var(--red); }
   .contact-item .value a:hover { text-decoration: underline; }
   .social-links { display: flex; gap: 0.8rem; margin-top: 2rem; }
-  .social-link {
-    width: 48px; height: 48px; border-radius: 50%;
-    border: 2px solid var(--border); display: flex; align-items: center; justify-content: center;
-    transition: all var(--transition);
-  }
+  .social-link { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; transition: all var(--transition); }
   .social-link:hover { border-color: var(--red); background: var(--red); }
   .social-link svg { width: 20px; height: 20px; fill: var(--white); }
-  .contact-map-box {
-    width: 100%; aspect-ratio: 4/3;
-    background: var(--black-card); border: 1px solid var(--border);
-    border-radius: var(--radius); display: flex; align-items: center; justify-content: center;
-    flex-direction: column; gap: 0.5rem;
-  }
+  .contact-map-box { width: 100%; aspect-ratio: 4/3; background: var(--black-card); border: 1px solid var(--border); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; }
   .contact-map-box span.pin { font-size: 2.5rem; }
   .contact-map-box span.place { color: var(--gray); font-size: 0.95rem; font-weight: 600; }
   .contact-map-box span.sub { color: var(--gray-dark); font-size: 0.82rem; }
@@ -281,11 +171,10 @@
   .footer-col h4 { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 2px; color: var(--gray-dark); margin-bottom: 0.9rem; }
   .footer-col a { display: block; font-size: 0.85rem; color: var(--gray); padding: 0.25rem 0; transition: color var(--transition); }
   .footer-col a:hover { color: var(--red); }
-  .footer-bottom {
-    max-width: var(--max-w); margin: 2rem auto 0;
-    padding-top: 1.5rem; border-top: 1px solid var(--border);
-    font-size: 0.75rem; color: var(--gray-dark); text-align: center; letter-spacing: 0.5px;
-  }
+  .footer-affiliation { max-width: var(--max-w); margin: 2.5rem auto 0; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 1.2rem; flex-wrap: wrap; }
+  .footer-affiliation img { height: 36px; opacity: 0.7; }
+  .footer-affiliation p { font-size: 0.78rem; color: var(--gray-dark); max-width: 400px; }
+  .footer-bottom { max-width: var(--max-w); margin: 1.5rem auto 0; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--gray-dark); text-align: center; letter-spacing: 0.5px; }
 
   @media (max-width: 900px) {
     .about-grid, .contact-grid { grid-template-columns: 1fr; }
@@ -295,22 +184,15 @@
     .photo-strip img { height: 220px; }
   }
   @media (max-width: 768px) {
-    .nav-links {
-      position: fixed; top: var(--nav-height); left: 0; right: 0; bottom: 0;
-      background: var(--black); flex-direction: column; padding: 2rem;
-      gap: 0; align-items: stretch; overflow-y: auto;
-      transform: translateX(100%); transition: transform var(--transition);
-    }
+    .nav-links { position: fixed; top: var(--nav-height); left: 0; right: 0; bottom: 0; background: var(--black); flex-direction: column; padding: 2rem; gap: 0; align-items: stretch; overflow-y: auto; transform: translateX(100%); transition: transform var(--transition); }
     .nav-links.open { transform: translateX(0); }
     .nav-links a { padding: 0.9rem 0; font-size: 1rem; }
-    .nav-links .dropdown-menu {
-      position: static; opacity: 1; visibility: visible;
-      transform: none; box-shadow: none; border: none; background: transparent; padding-left: 1rem;
-    }
+    .nav-links .dropdown-menu { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: none; background: transparent; padding-left: 1rem; }
     .nav-toggle { display: block; }
     .events-grid { grid-template-columns: 1fr; }
     .hero-logo { width: 130px; }
     .photo-strip { grid-template-columns: 1fr; }
+    .pro-grid { grid-template-columns: 1fr; }
   }
 
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -321,9 +203,7 @@
 
 <!-- NAV -->
 <nav class="nav">
-  <a href="#" class="nav-logo">
-    <img src="images/Engineering_Society_Logo_TAS__White___2_.png" alt="TUES Logo">
-  </a>
+  <a href="#" class="nav-logo"><img src="images/Engineering_Society_Logo_TAS__White___2_.png" alt="TUES Logo"></a>
   <div class="nav-links" id="navLinks">
     <a href="#about">About</a>
     <div class="dropdown">
@@ -333,32 +213,33 @@
         <a href="#photos">Gallery</a>
       </div>
     </div>
+    <a href="#professional">Professional</a>
     <a href="#sponsors">Sponsors</a>
     <a href="#contact">Contact</a>
     <a href="https://www.instagram.com/engisocietytas/" target="_blank">Instagram</a>
-    <a href="https://www.facebook.com/TasUniEngi/" target="_blank">Facebook</a>
     <a href="https://campus.hellorubric.com/?s=1439" target="_blank" class="btn-join">Join Now</a>
   </div>
-  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- HERO -->
+<!-- HERO — diversified images: Laneway, FSAE, Ball, Sport, Women, Industry -->
 <section class="hero">
   <div class="hero-slides" id="heroSlides">
     <div class="hero-slide active" style="background-image:url('images/TobyRudovMedia_67_.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/FSAE.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/ball3.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/sportafl.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/women2.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/awards.jpg')"></div>
     <div class="hero-slide" style="background-image:url('images/TobyRudovMedia_77_.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('images/TRPhotography_131_.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('images/TobyRudovMedia_46_.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('images/Laneway_3.jpg')"></div>
     <div class="hero-slide" style="background-image:url('images/Laneway_5.jpg')"></div>
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <img src="images/Engineering_Society_Logo_TAS__White___2_.png" alt="TUES" class="hero-logo">
     <h1>Tasmanian University<br><span class="accent">Engineering Society</span></h1>
-    <p>One of the most active societies on campus — delivering social events, industry connections, and unforgettable experiences for all UTAS students.</p>
+    <div class="hero-since">Est. ~1991 &middot; 35+ Years of Student Community</div>
+    <p>One of the most active and longest-running societies on campus — delivering social events, industry connections, professional development and unforgettable experiences for all UTAS students.</p>
     <div class="hero-btns">
       <a href="https://campus.hellorubric.com/?s=1439" target="_blank" class="primary">Become a Member</a>
       <a href="#events" class="secondary">Our Events</a>
@@ -376,121 +257,119 @@
       <div class="about-text reveal">
         <p class="section-label">Who We Are</p>
         <h2 class="section-title">About TUES</h2>
-        <p>The Tasmanian University Engineering Society (TUES) is a student-led organisation representing students at the University of Tasmania. While centred around engineering, our society is open to all UTAS students, allowing us to engage a broad and diverse student community.</p>
-        <p>We are one of the most active societies on campus, delivering a wide range of events across the year — from large-scale social events to industry engagement opportunities and professional development initiatives.</p>
+        <p>The Tasmanian University Engineering Society (TUES) is a student-led organisation representing students at the University of Tasmania. Established circa 1991, we have over three decades of history building community among engineering students at UTAS.</p>
+        <p>While centred around engineering, our society is open to all UTAS students, allowing us to engage a broad and diverse student community. We are one of the most active societies on campus, delivering social events, industry engagement, professional development and academic support initiatives.</p>
         <div class="highlight">
           In 2025, TUES was recognised as one of the largest societies on campus, hosting several of the university's biggest events including Engi Laneway, which attracts up to 1,000 attendees.
         </div>
         <p>Our goal is to create a strong student community while connecting students with industry and new experiences both on and off campus.</p>
         <div class="stat-row">
+          <div class="stat"><h3>1991</h3><p>Established</p></div>
           <div class="stat"><h3>1000+</h3><p>Event Attendees</p></div>
-          <div class="stat"><h3>#1</h3><p>Largest Events</p></div>
           <div class="stat"><h3>All</h3><p>UTAS Welcome</p></div>
         </div>
+        <div class="ssaf-badge">
+          <img src="images/TUSA_Logo_Rev.png" alt="TUSA">
+          <span>TUES is a SSAF funded society, supported by the Tasmanian University Student Association (TUSA).</span>
+        </div>
       </div>
-      <img src="images/TobyRudovMedia_67_.jpg" alt="Engi Laneway crowd" class="about-img reveal">
+      <img src="images/awards.jpg" alt="TUES receiving TUSA Achievement of the Year award" class="about-img reveal">
+    </div>
+  </div>
+</section>
+
+<!-- PROFESSIONAL & ACADEMIC -->
+<section class="pro-section" id="professional">
+  <div class="section-inner">
+    <p class="section-label reveal">Beyond the Events</p>
+    <h2 class="section-title reveal">Professional &amp; Academic</h2>
+    <p class="section-subtitle reveal">TUES isn't just about social events — we play an active role in supporting students' professional and academic journeys.</p>
+    <div class="pro-grid">
+      <div class="pro-card reveal">
+        <div class="pro-icon">🏭</div>
+        <h3>Industry Networking</h3>
+        <p>Panels, site visits and networking nights connecting students directly with engineering professionals and employers across Tasmania.</p>
+      </div>
+      <div class="pro-card reveal">
+        <div class="pro-icon">👩‍🔬</div>
+        <h3>Women in Engineering</h3>
+        <p>Morning teas, mentoring and community-building events supporting and celebrating women in engineering at UTAS.</p>
+      </div>
+      <div class="pro-card reveal">
+        <div class="pro-icon">🏎️</div>
+        <h3>FSAE &amp; Technical Teams</h3>
+        <p>Supporting student-led technical projects like Formula SAE, where students design, build and race open-wheel race cars.</p>
+      </div>
+      <div class="pro-card reveal">
+        <div class="pro-icon">📋</div>
+        <h3>Student Consultation</h3>
+        <p>Engaging with the university on student experience, providing feedback on courses and representing engineering students' interests.</p>
+      </div>
+      <div class="pro-card reveal">
+        <div class="pro-icon">📚</div>
+        <h3>Academic Support</h3>
+        <p>Peer mentoring, study groups and resource sharing to help engineering students succeed throughout their degree.</p>
+      </div>
+      <div class="pro-card reveal">
+        <div class="pro-icon">🎓</div>
+        <h3>Careers &amp; Development</h3>
+        <p>Workshops, resume reviews and career fairs to help students prepare for the transition from university to industry.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- EVENTS -->
-<section id="events">
+<section id="events" style="background: var(--black-soft);">
   <div class="section-inner">
     <p class="section-label reveal">What We Do</p>
     <h2 class="section-title reveal">Our Events</h2>
     <p class="section-subtitle reveal">From massive festivals and formals to pub nights and sport — there's always something happening.</p>
     <div class="events-grid">
-
       <div class="event-card reveal">
-        <div class="event-card-img" style="background-image:url('images/Laneway_1.jpg')">
-          <span class="tag">Flagship</span>
-        </div>
-        <div class="event-card-body">
-          <h3>Engi Laneway Music &amp; Arts Festival</h3>
-          <p>Our biggest event of the year — live bands, DJs, food and an incredible atmosphere with up to 1,000 students.</p>
-        </div>
+        <div class="event-card-img" style="background-image:url('images/Laneway_1.jpg')"><span class="tag">Flagship</span></div>
+        <div class="event-card-body"><h3>Engi Laneway Music &amp; Arts Festival</h3></div>
       </div>
-
       <div class="event-card reveal">
-        <div class="event-card-img" style="background-image:url('images/cocktail.jpg')">
-          <span class="tag">Social</span>
-        </div>
-        <div class="event-card-body">
-          <h3>Pub Nights</h3>
-          <p>Nights out at local venues — great drinks, good company, and the perfect end of semester wind-down.</p>
-        </div>
+        <div class="event-card-img" style="background-image:url('images/cocktail.jpg')"><span class="tag">Social</span></div>
+        <div class="event-card-body"><h3>Pub Nights</h3></div>
       </div>
-
       <div class="event-card reveal">
-        <div class="event-card-img" style="background-image:url('images/Copy_of_Copy_of_Spectrum-26.JPG')">
-          <span class="tag">Collab</span>
-        </div>
-        <div class="event-card-body">
-          <h3>Suits, Scrubs &amp; Spanners</h3>
-          <p>A collaborative party with the Law and Medical student societies. Come dressed in your chosen fields uniform.</p>
-        </div>
+        <div class="event-card-img" style="background-image:url('images/Copy_of_Copy_of_Spectrum-26.JPG')"><span class="tag">Collab</span></div>
+        <div class="event-card-body"><h3>Suits, Scrubs &amp; Spanners</h3></div>
       </div>
-
       <div class="event-card reveal">
-        <div class="event-card-img" style="background-image:url('images/ball3.jpg')">
-          <span class="tag">Formal</span>
-        </div>
-        <div class="event-card-body">
-          <h3>Engineering Ball</h3>
-          <p>Our annual formal event — dress up, celebrate the year's achievements, and dance the night away.</p>
-        </div>
+        <div class="event-card-img" style="background-image:url('images/ball2.jpg')"><span class="tag">Formal</span></div>
+        <div class="event-card-body"><h3>Engineering Ball</h3></div>
       </div>
-
       <div class="event-card reveal">
-        <div class="event-card-img" style="background-image:url('images/awards.jpg')">
-          <span class="tag">Industry</span>
-        </div>
-        <div class="event-card-body">
-          <h3>Networking &amp; Industry Panels</h3>
-          <p>Connect with industry professionals through panels, networking nights, workshops and site visits.</p>
-        </div>
+        <div class="event-card-img" style="background-image:url('images/awards.jpg')"><span class="tag">Industry</span></div>
+        <div class="event-card-body"><h3>Networking &amp; Industry Panels</h3></div>
       </div>
-
       <div class="event-card reveal">
-        <div class="event-card-img" style="background-image:url('images/sportdodgeball.jpg')">
-          <span class="tag">Sport</span>
-        </div>
-        <div class="event-card-body">
-          <h3>Sport</h3>
-          <p>Inter-faculty AFL, dodgeball, go carts, lawn bowls and more — getting away from the textbook and having fun with other students. </p>
-        </div>
+        <div class="event-card-img" style="background-image:url('images/sportdodgeball.jpg')"><span class="tag">Sport</span></div>
+        <div class="event-card-body"><h3>Inter-Faculty Sport</h3></div>
       </div>
-
-      <div class="event-card reveal">
-        <div class="event-card-img" style="background-image:url('images/womenmorningtea.jpg')">
-          <span class="tag">Community</span>
-        </div>
-        <div class="event-card-body">
-          <h3>Women in Engineering</h3>
-          <p>Morning teas, networking events, and community-building initiatives supporting women in engineering.</p>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
 <!-- PHOTO STRIP 1 -->
 <section class="photo-strip" id="photos">
-  <img src="images/TobyRudovMedia_77_.jpg" alt="DJs on stage at Laneway">
+  <img src="images/FSAE2.jpg" alt="FSAE race car">
   <img src="images/ball2.jpg" alt="Friends at Engineering Ball">
   <img src="images/sportlawnbowls.jpg" alt="Lawn bowls champions">
-  <img src="images/Copy_of_Copy_of_Spectrum-56.JPG" alt="Club night">
+  <img src="images/TobyRudovMedia_46_.jpg" alt="Laneway crowd">
 </section>
 
 <div class="red-bar"></div>
 
 <!-- PHOTO STRIP 2 -->
 <section class="photo-strip">
-  <img src="images/ball1.jpg" alt="Engineering Ball venue">
-  <img src="images/sportafl.jpg" alt="Dodgeball team">
   <img src="images/women2.jpg" alt="Women in Engineering">
-  <img src="images/Laneway_3.jpg" alt="Crowd at Laneway">
+  <img src="images/ball1.jpg" alt="Engineering Ball venue">
+  <img src="images/TRPhotography_131_.jpg" alt="Live music at Laneway">
+  <img src="images/sportdodgeball.jpg" alt="Dodgeball team">
 </section>
 
 <!-- SPONSORS -->
@@ -499,7 +378,6 @@
     <p class="section-label reveal">Our Partners</p>
     <h2 class="section-title reveal">2026 Sponsors</h2>
     <p class="section-subtitle reveal">We're proudly supported by industry partners who help make our events possible.</p>
-
     <div class="sponsor-tier reveal">
       <div class="tier-label gold">Gold Partners</div>
       <div class="sponsor-grid">
@@ -507,7 +385,6 @@
         <div class="sponsor-card gold"><span class="sponsor-placeholder">Sponsor Logo</span></div>
       </div>
     </div>
-
     <div class="sponsor-tier reveal">
       <div class="tier-label silver">Silver Partners</div>
       <div class="sponsor-grid">
@@ -516,7 +393,6 @@
         <div class="sponsor-card silver"><span class="sponsor-placeholder">Sponsor Logo</span></div>
       </div>
     </div>
-
     <div class="sponsor-tier reveal">
       <div class="tier-label bronze">Bronze Partners</div>
       <div class="sponsor-grid">
@@ -526,10 +402,9 @@
         <div class="sponsor-card bronze"><span class="sponsor-placeholder">Sponsor Logo</span></div>
       </div>
     </div>
-
     <div class="sponsor-cta reveal">
       <h3>Become a Sponsor</h3>
-      <p>Partner with TUES and connect your brand with Tasmania's most active engineering student community. We offer flexible sponsorship packages across all tiers.</p>
+      <p>Partner with TUES and connect your brand with Tasmania's most active engineering student community. Over 35 years of longevity and commitment from the student body means a strong return on your investment.</p>
       <a href="mailto:president.engineering.utas@gmail.com?subject=Sponsorship%20Enquiry%20-%20TUES" class="sponsor-cta-btn">Get in Touch</a>
     </div>
   </div>
@@ -553,24 +428,15 @@
       <div class="reveal">
         <div class="contact-item">
           <div class="icon">✉</div>
-          <div>
-            <div class="label">Email</div>
-            <div class="value"><a href="mailto:president.engineering.utas@gmail.com">president.engineering.utas@gmail.com</a></div>
-          </div>
+          <div><div class="label">Email</div><div class="value"><a href="mailto:president.engineering.utas@gmail.com">president.engineering.utas@gmail.com</a></div></div>
         </div>
         <div class="contact-item">
           <div class="icon">🎓</div>
-          <div>
-            <div class="label">University</div>
-            <div class="value">University of Tasmania</div>
-          </div>
+          <div><div class="label">University</div><div class="value">University of Tasmania</div></div>
         </div>
         <div class="contact-item">
           <div class="icon">📋</div>
-          <div>
-            <div class="label">Membership</div>
-            <div class="value"><a href="https://campus.hellorubric.com/?s=1439" target="_blank">Sign up via Rubric</a></div>
-          </div>
+          <div><div class="label">Membership</div><div class="value"><a href="https://campus.hellorubric.com/?s=1439" target="_blank">Sign up via Rubric</a></div></div>
         </div>
         <div class="social-links">
           <a href="https://www.instagram.com/engisocietytas/" target="_blank" class="social-link" aria-label="Instagram">
@@ -595,11 +461,12 @@
   <div class="footer-inner">
     <div class="footer-brand">
       <img src="images/Engineering_Society_Logo_TAS__Red___6_.png" alt="TUES Logo">
-      <p>Tasmanian University Engineering Society — connecting students with community, industry and unforgettable experiences.</p>
+      <p>Tasmanian University Engineering Society — connecting students with community, industry and unforgettable experiences since ~1991.</p>
     </div>
     <div class="footer-col">
       <h4>Navigate</h4>
       <a href="#about">About Us</a>
+      <a href="#professional">Professional</a>
       <a href="#events">Events</a>
       <a href="#sponsors">Sponsors</a>
       <a href="#photos">Gallery</a>
@@ -617,8 +484,12 @@
       <a href="https://www.facebook.com/TasUniEngi/" target="_blank">Facebook</a>
     </div>
   </div>
+  <div class="footer-affiliation">
+    <img src="images/TUSA_Logo_Rev.png" alt="TUSA Logo">
+    <p>TUES is a SSAF funded society, affiliated with and supported by the Tasmanian University Student Association (TUSA).</p>
+  </div>
   <div class="footer-bottom">
-    &copy; 2026 Tasmanian University Engineering Society. All rights reserved. &middot; A TUSA affiliated society.
+    &copy; 2026 Tasmanian University Engineering Society. All rights reserved. &middot; Est. ~1991 &middot; A TUSA affiliated society.
   </div>
 </footer>
 
@@ -641,11 +512,9 @@
     dotsContainer.children[current].classList.add('active');
   }
   setInterval(function() { goTo((current + 1) % slides.length); }, 5000);
-
   document.getElementById('navToggle').addEventListener('click', function() {
     document.getElementById('navLinks').classList.toggle('open');
   });
-
   var obs = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
@@ -653,4 +522,4 @@
 </script>
 
 </body>
-</html>/sport
+</html>
