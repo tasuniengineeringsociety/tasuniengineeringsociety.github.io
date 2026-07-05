@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fencing Hire — TUES</title>
+<meta name="description" content="Hire temporary fencing panels from the Tasmanian University Engineering Society. Check live availability, get an instant quote, and request a booking.">
+<meta property="og:title" content="Fencing Hire — TUES">
+<meta property="og:description" content="Temporary fencing panel hire for clubs, societies and events. Check availability and get an instant quote.">
+<meta property="og:url" content="https://tasuniengineeringsociety.github.io/fencing.html">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ==========================================================================
+     SHARED TOKENS + BASE — copied from index.html so this page stays
+     self-contained (same convention as the rest of the site). If you change
+     the palette here, change it in index.html too.
+     ========================================================================== */
+  :root {
+    --black: #000000;
+    --black-soft: #0a0a0a;
+    --black-card: #111111;
+    --black-card-hover: #1a1a1a;
+    --red: #d42027;
+    --red-dark: #a8181e;
+    --red-glow: rgba(212, 32, 39, 0.25);
+    --white: #ffffff;
+    --white-dim: #e0e0e0;
+    --gray: #888888;
+    --gray-dark: #444444;
+    --border: #222222;
+    --nav-height: 76px;
+    --max-w: 1200px;
+    --radius: 8px;
+    --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition: 0.35s var(--ease);
+    /* Fencing-page additions (still within the palette) */
+    --green-ok: #3ddc84;               /* availability "free" indicator only  */
+    --amber: #f0c040;                  /* matches the gold sponsor tier tone  */
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Manrope', sans-serif; background: var(--black); color: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  ul { list-style: none; }
+  button { font-family: inherit; }
+
+  /* NAV — identical to index.html */
+  .nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-height); background: rgba(0,0,0,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(1.2rem, 4vw, 3rem); }
+  .nav-logo img { height: 48px; }
+  .nav-links { display: flex; gap: 0.2rem; align-items: center; }
+  .nav-links a { padding: 0.55rem 0.85rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; color: var(--gray); letter-spacing: 0.3px; transition: color var(--transition), background var(--transition); }
+  .nav-links a:hover { color: var(--white); background: var(--black-card); }
+  .nav-links a.active { color: var(--red); }
+  .btn-join { background: var(--red) !important; color: var(--white) !important; font-weight: 700; border-radius: 6px; padding: 0.55rem 1.2rem !important; letter-spacing: 0.5px; text-transform: uppercase; font-size: 0.78rem !important; transition: background var(--transition), transform 0.15s, box-shadow var(--transition); }
+  .btn-join:hover { background: var(--red-dark) !important; transform: translateY(-1px); box-shadow: 0 4px 20px var(--red-glow); }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
+  .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--white); margin: 5px 0; border-radius: 2px; transition: var(--transition); }
+
+  .red-bar { height: 4px; background: var(--red); width: 100%; }
+
+  section { padding: 6rem clamp(1.2rem, 4vw, 3rem); }
+  .section-inner { max-width: var(--max-w); margin: 0 auto; }
+  .section-label { font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; letter-spacing: 4px; text-transform: uppercase; color: var(--red); margin-bottom: 0.5rem; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3rem); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem; }
+  .section-subtitle { color: var(--gray); max-width: 620px; font-size: 0.95rem; margin-bottom: 3.5rem; }
+
+  /* Scroll reveal — identical to index.html */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ==========================================================================
+     FENCING HERO — compact band. The vertical bar pattern is a nod to fence
+     panels; the grain overlay keeps the flat black from feeling dated.
+     ========================================================================== */
+  .fh-hero { position: relative; min-height: 68vh; display: flex; align-items: center; padding-top: calc(var(--nav-height) + 3rem); overflow: hidden;
+    background:
+      radial-gradient(ellipse 90% 60% at 70% 10%, rgba(212,32,39,0.12), transparent 60%),
+      repeating-linear-gradient(90deg, transparent 0 46px, rgba(255,255,255,0.025) 46px 48px),
+      var(--black-soft);
+  }
+  .fh-hero::after { /* film grain, pure SVG noise — no image files needed */
+    content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+  .fh-hero-inner { position: relative; z-index: 2; max-width: var(--max-w); margin: 0 auto; width: 100%; animation: heroIn 1s ease-out 0.1s both; }
+  @keyframes heroIn { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: translateY(0); } }
+  .fh-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 8vw, 5.5rem); line-height: 1; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.2rem; }
+  .fh-hero h1 .accent { color: var(--red); }
+  .fh-hero p.lede { font-size: 1.02rem; color: var(--white-dim); max-width: 560px; margin-bottom: 2.2rem; opacity: 0.85; }
+  .fh-hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+  .fh-hero-btns a { padding: 0.85rem 2rem; border-radius: 6px; font-weight: 700; font-size: 0.88rem; letter-spacing: 0.8px; text-transform: uppercase; transition: all var(--transition); }
+  .fh-hero-btns .primary { background: var(--red); color: var(--white); box-shadow: 0 4px 24px var(--red-glow); }
+  .fh-hero-btns .primary:hover { background: var(--red-dark); transform: translateY(-2px); }
+  .fh-hero-btns .primary:active { transform: translateY(0) scale(0.98); }
+  .fh-hero-btns .secondary { border: 2px solid var(--white); color: var(--white); }
+  .fh-hero-btns .secondary:hover { background: var(--white); color: var(--black); }
+
+  /* Live stat counters (Total / Available today / From $) */
+  .fh-stats { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+  .fh-stat h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2.6rem; color: var(--red); line-height: 1; min-width: 2ch; }
+  .fh-stat h3 .unit { font-size: 1.2rem; color: var(--gray); letter-spacing: 1px; }
+  .fh-stat p { font-size: 0.78rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+  .fh-stat.loading h3 { color: var(--gray-dark); }
+
+  /* ==========================================================================
+     HOW IT WORKS — three step cards (same card language as .pro-card)
+     ========================================================================== */
+  .fh-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+  .fh-step { background: var(--black-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; transition: all var(--transition); position: relative; }
+  .fh-step:hover { border-color: var(--red); transform: translateY(-3px); box-shadow: 0 6px 24px var(--red-glow); }
+  .fh-step .num { font-family: 'Bebas Neue', sans-serif; font-size: 2.6rem; color: var(--red); line-height: 1; margin-bottom: 0.8rem; opacity: 0.9; }
+  .fh-step h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 1px; margin-bottom: 0.5rem; }
+  .fh-step p { font-size: 0.85rem; color: var(--gray); line-height: 1.55; }
+
+  /* ==========================================================================
+     BOOKING SECTION — two-column: calendar + form on the left,
+     sticky live quote on the right.
+     ========================================================================== */
+  .fh-book-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 2.5rem; align-items: start; }
+
+  .fh-panel { background: var(--black-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.6rem; }
+  .fh-panel + .fh-panel { margin-top: 1.5rem; }
+  .fh-panel-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.25rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1.1rem; display: flex; align-items: center; gap: 0.6rem; }
+  .fh-panel-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* ---- Calendar ---------------------------------------------------------- */
+  .cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.9rem; }
+  .cal-month { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 2px; text-transform: uppercase; }
+  .cal-nav { display: flex; gap: 0.5rem; }
+  .cal-nav button { width: 38px; height: 38px; border-radius: 6px; border: 1px solid var(--border); background: var(--black-soft); color: var(--white); font-size: 1rem; cursor: pointer; transition: all 0.2s var(--ease); }
+  .cal-nav button:hover:not(:disabled) { border-color: var(--red); color: var(--red); }
+  .cal-nav button:active:not(:disabled) { transform: scale(0.92); }
+  .cal-nav button:disabled { opacity: 0.25; cursor: default; }
+  .cal-dow { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 4px; }
+  .cal-dow span { text-align: center; font-size: 0.66rem; font-weight: 700; letter-spacing: 1px; color: var(--gray-dark); text-transform: uppercase; padding: 0.3rem 0; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .cal-cell { aspect-ratio: 1 / 0.86; border-radius: 6px; border: 1px solid var(--border); background: var(--black-soft); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; cursor: pointer; position: relative; transition: border-color 0.18s var(--ease), background 0.18s var(--ease), transform 0.12s var(--ease); user-select: none; -webkit-user-select: none; }
+  .cal-cell .d { font-size: 0.86rem; font-weight: 700; line-height: 1; }
+  .cal-cell .free { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.3px; color: var(--gray); line-height: 1; }
+  .cal-cell.empty { border: none; background: transparent; cursor: default; }
+  .cal-cell:not(.empty):not(.disabled):hover { border-color: var(--red); transform: translateY(-2px); }
+  .cal-cell.disabled { opacity: 0.28; cursor: default; }
+  .cal-cell.disabled .free { display: none; }
+  .cal-cell.partial .free { color: var(--amber); }
+  .cal-cell.full { background: rgba(212,32,39,0.08); }
+  .cal-cell.full .d { color: var(--gray); text-decoration: line-through; text-decoration-color: var(--red); text-decoration-thickness: 2px; }
+  .cal-cell.full .free { color: var(--red); }
+  .cal-cell.today { border-color: var(--gray-dark); }
+  .cal-cell.today::after { content: ''; position: absolute; top: 4px; right: 4px; width: 5px; height: 5px; border-radius: 50%; background: var(--red); }
+  /* Selected hire range */
+  .cal-cell.in-range { background: rgba(212,32,39,0.16); border-color: rgba(212,32,39,0.45); }
+  .cal-cell.range-start, .cal-cell.range-end { background: var(--red); border-color: var(--red); box-shadow: 0 4px 16px var(--red-glow); }
+  .cal-cell.range-start .d, .cal-cell.range-end .d { color: var(--white); }
+  .cal-cell.range-start .free, .cal-cell.range-end .free { color: rgba(255,255,255,0.75); }
+  .cal-legend { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-top: 1rem; font-size: 0.72rem; color: var(--gray); font-weight: 600; }
+  .cal-legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .cal-legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; border: 1px solid var(--border); }
+  .cal-legend .l-free i { background: var(--black-soft); }
+  .cal-legend .l-partial i { background: var(--black-soft); border-color: var(--amber); }
+  .cal-legend .l-full i { background: rgba(212,32,39,0.2); border-color: var(--red); }
+  .cal-legend .l-sel i { background: var(--red); border-color: var(--red); }
+  .cal-hint { margin-top: 0.9rem; font-size: 0.8rem; color: var(--gray); }
+  .cal-hint strong { color: var(--white-dim); }
+
+  /* Skeleton shimmer while bookings JSON loads */
+  @keyframes shimmer { 0% { background-position: -300px 0; } 100% { background-position: 300px 0; } }
+  .skel { border: 1px solid var(--border) !important; background: linear-gradient(90deg, var(--black-soft) 25%, #161616 50%, var(--black-soft) 75%) !important; background-size: 600px 100% !important; animation: shimmer 1.4s infinite linear; cursor: default !important; }
+  .skel * { visibility: hidden; }
+  .cal-error { padding: 2rem 1rem; text-align: center; color: var(--gray); font-size: 0.88rem; }
+  .cal-error button { margin-top: 1rem; padding: 0.6rem 1.4rem; border-radius: 6px; border: 1px solid var(--red); background: transparent; color: var(--red); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.2s var(--ease); }
+  .cal-error button:hover { background: var(--red); color: var(--white); }
+
+  /* ---- Form -------------------------------------------------------------- */
+  .fh-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.2rem; }
+  .fh-field { display: flex; flex-direction: column; gap: 0.35rem; }
+  .fh-field.wide { grid-column: 1 / -1; }
+  .fh-field label { font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gray); }
+  .fh-field label .req { color: var(--red); }
+  .fh-input { background: var(--black-soft); border: 1px solid var(--border); border-radius: 6px; color: var(--white); font-family: inherit; font-size: 0.92rem; padding: 0.75rem 0.9rem; transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease); width: 100%; }
+  .fh-input:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px var(--red-glow); }
+  .fh-input::placeholder { color: var(--gray-dark); }
+  .fh-input.invalid { border-color: var(--red); }
+  textarea.fh-input { resize: vertical; min-height: 90px; }
+
+  /* Read-only date chips filled in by clicking the calendar */
+  .fh-dates { display: flex; align-items: center; gap: 0.7rem; }
+  .fh-date-chip { flex: 1; background: var(--black-soft); border: 1px dashed var(--gray-dark); border-radius: 6px; padding: 0.75rem 0.9rem; font-size: 0.9rem; color: var(--gray-dark); text-align: center; transition: all 0.25s var(--ease); }
+  .fh-date-chip.set { border-style: solid; border-color: var(--red); color: var(--white); font-weight: 600; }
+  .fh-dates .arrow { color: var(--gray-dark); font-size: 0.9rem; }
+  .fh-dates-clear { background: none; border: none; color: var(--gray); font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; padding: 0.3rem 0; transition: color 0.2s; align-self: flex-start; }
+  .fh-dates-clear:hover { color: var(--red); }
+
+  /* Custom stepper for panel count (replaces the default number input) */
+  .fh-stepper { display: flex; align-items: stretch; }
+  .fh-stepper button { width: 46px; border: 1px solid var(--border); background: var(--black-soft); color: var(--white); font-size: 1.15rem; cursor: pointer; transition: all 0.15s var(--ease); }
+  .fh-stepper button:first-child { border-radius: 6px 0 0 6px; }
+  .fh-stepper button:last-child { border-radius: 0 6px 6px 0; }
+  .fh-stepper button:hover:not(:disabled) { background: var(--black-card-hover); color: var(--red); }
+  .fh-stepper button:active:not(:disabled) { transform: scale(0.9); }
+  .fh-stepper button:disabled { opacity: 0.3; cursor: default; }
+  .fh-stepper input { width: 100%; text-align: center; border-left: none; border-right: none; border-radius: 0; -moz-appearance: textfield; appearance: textfield; font-weight: 700; }
+  .fh-stepper input::-webkit-outer-spin-button, .fh-stepper input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+  /* Segmented control: self-collect vs delivery */
+  .fh-seg { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; background: var(--black-soft); }
+  .fh-seg button { padding: 0.75rem 0.5rem; background: transparent; border: none; color: var(--gray); font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: all 0.2s var(--ease); }
+  .fh-seg button.on { background: var(--red); color: var(--white); }
+  .fh-seg button:not(.on):hover { color: var(--white); background: var(--black-card-hover); }
+
+  /* Custom checkbox for T&Cs */
+  .fh-check { display: flex; gap: 0.8rem; align-items: flex-start; cursor: pointer; padding: 1rem; border: 1px solid var(--border); border-radius: 6px; background: var(--black-soft); transition: border-color 0.2s var(--ease); }
+  .fh-check:hover { border-color: var(--gray-dark); }
+  .fh-check.invalid { border-color: var(--red); }
+  .fh-check input { position: absolute; opacity: 0; pointer-events: none; }
+  .fh-check .box { flex-shrink: 0; width: 22px; height: 22px; border: 2px solid var(--gray-dark); border-radius: 5px; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all 0.2s var(--ease); }
+  .fh-check .box svg { width: 13px; height: 13px; stroke: var(--white); stroke-width: 3; fill: none; stroke-dasharray: 20; stroke-dashoffset: 20; transition: stroke-dashoffset 0.25s var(--ease) 0.05s; }
+  .fh-check input:checked ~ .box { background: var(--red); border-color: var(--red); }
+  .fh-check input:checked ~ .box svg { stroke-dashoffset: 0; }
+  .fh-check input:focus-visible ~ .box { box-shadow: 0 0 0 3px var(--red-glow); }
+  .fh-check .txt { font-size: 0.83rem; color: var(--white-dim); line-height: 1.5; }
+  .fh-check .txt a { color: var(--red); text-decoration: underline; text-underline-offset: 2px; }
+
+  .fh-submit { width: 100%; padding: 1rem; border: none; border-radius: 6px; background: var(--red); color: var(--white); font-weight: 800; font-size: 0.92rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all var(--transition); box-shadow: 0 4px 24px var(--red-glow); margin-top: 1.2rem; }
+  .fh-submit:hover:not(:disabled) { background: var(--red-dark); transform: translateY(-2px); }
+  .fh-submit:active:not(:disabled) { transform: translateY(0) scale(0.99); }
+  .fh-submit:disabled { opacity: 0.5; cursor: default; box-shadow: none; }
+  .fh-submit.busy { pointer-events: none; }
+  .fh-submit .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.35); border-top-color: var(--white); border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: -2px; margin-right: 8px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ---- Live quote card (sticky, right column) ----------------------------- */
+  .fh-quote { position: sticky; top: calc(var(--nav-height) + 1.5rem); }
+  .fh-quote .fh-panel { border-top: 3px solid var(--red); }
+  .quote-rows { display: flex; flex-direction: column; }
+  .quote-row { display: flex; justify-content: space-between; gap: 1rem; padding: 0.65rem 0; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+  .quote-row .k { color: var(--gray); }
+  .quote-row .v { font-weight: 700; text-align: right; }
+  .quote-row.total { border-bottom: none; padding-top: 0.9rem; }
+  .quote-row.total .k { color: var(--white); font-weight: 800; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; align-self: center; }
+  .quote-row.total .v { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--red); line-height: 1; }
+  .quote-note { font-size: 0.75rem; color: var(--gray); margin-top: 0.7rem; line-height: 1.5; }
+  .quote-empty { color: var(--gray-dark); font-size: 0.85rem; padding: 0.5rem 0 0.2rem; }
+  /* Availability verdict line inside the quote card */
+  .quote-avail { margin-top: 1rem; padding: 0.7rem 0.9rem; border-radius: 6px; font-size: 0.82rem; font-weight: 600; border: 1px solid var(--border); display: none; }
+  .quote-avail.ok { display: block; border-color: rgba(61,220,132,0.35); color: var(--green-ok); background: rgba(61,220,132,0.06); }
+  .quote-avail.bad { display: block; border-color: var(--red); color: var(--red); background: rgba(212,32,39,0.08); }
+
+  /* ---- Success panel (replaces the form after submission) ------------------ */
+  .fh-success { display: none; text-align: center; padding: 2.5rem 1.5rem; }
+  .fh-success.show { display: block; animation: heroIn 0.5s ease-out both; }
+  .fh-success .tick { width: 64px; height: 64px; margin: 0 auto 1.2rem; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 32px var(--red-glow); }
+  .fh-success .tick svg { width: 30px; height: 30px; stroke: var(--white); stroke-width: 3; fill: none; }
+  .fh-success h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.6rem; }
+  .fh-success .ref { display: inline-block; font-family: monospace; font-size: 1.05rem; font-weight: 700; background: var(--black-soft); border: 1px dashed var(--gray-dark); border-radius: 6px; padding: 0.5rem 1.1rem; margin: 0.4rem 0 1rem; letter-spacing: 1px; }
+  .fh-success p { color: var(--gray); font-size: 0.88rem; max-width: 460px; margin: 0 auto 0.6rem; }
+  .fh-success .actions { margin-top: 1.4rem; display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+  .fh-success .actions a { padding: 0.7rem 1.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border: 1px solid var(--border); color: var(--white-dim); transition: all 0.2s var(--ease); }
+  .fh-success .actions a:hover { border-color: var(--red); color: var(--red); }
+
+  /* ---- Toasts -------------------------------------------------------------- */
+  .toasts { position: fixed; bottom: 1.4rem; right: 1.4rem; z-index: 2000; display: flex; flex-direction: column; gap: 0.6rem; max-width: min(360px, calc(100vw - 2.8rem)); }
+  .toast { background: var(--black-card); border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: 6px; padding: 0.85rem 1.1rem; font-size: 0.85rem; color: var(--white-dim); box-shadow: 0 12px 40px rgba(0,0,0,0.6); animation: toastIn 0.3s var(--ease) both; }
+  .toast.ok { border-left-color: var(--green-ok); }
+  .toast.warn { border-left-color: var(--amber); }
+  .toast.leaving { animation: toastOut 0.3s var(--ease) both; }
+  @keyframes toastIn { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes toastOut { from { opacity: 1; } to { opacity: 0; transform: translateX(24px); } }
+
+  /* ==========================================================================
+     TERMS SECTION
+     ========================================================================== */
+  .fh-terms-section { background: var(--black-soft); }
+  .fh-terms-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .fh-term-card { background: var(--black-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.8rem; transition: all var(--transition); }
+  .fh-term-card:hover { border-color: var(--red); transform: translateY(-3px); box-shadow: 0 6px 24px var(--red-glow); }
+  .fh-term-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: 1px; margin-bottom: 0.7rem; }
+  .fh-term-card ul { list-style: none; }
+  .fh-term-card li { font-size: 0.84rem; color: var(--gray); line-height: 1.55; padding: 0.3rem 0 0.3rem 1.1rem; position: relative; }
+  .fh-term-card li::before { content: ''; position: absolute; left: 0; top: 0.85em; width: 5px; height: 5px; border-radius: 50%; background: var(--red); }
+  .fh-term-card li strong { color: var(--white-dim); }
+
+  /* FOOTER — identical to index.html (plus the fencing link) */
+  footer { border-top: 1px solid var(--border); padding: 3rem clamp(1.2rem, 4vw, 3rem) 1.5rem; background: var(--black); }
+  .footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 2.5rem; }
+  .footer-brand img { height: 44px; margin-bottom: 0.8rem; }
+  .footer-brand p { font-size: 0.82rem; color: var(--gray-dark); max-width: 280px; line-height: 1.5; }
+  .footer-col h4 { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 2px; color: var(--gray-dark); margin-bottom: 0.9rem; }
+  .footer-col a { display: block; font-size: 0.85rem; color: var(--gray); padding: 0.25rem 0; transition: color var(--transition); }
+  .footer-col a:hover { color: var(--red); }
+  .footer-affiliation { max-width: var(--max-w); margin: 2.5rem auto 0; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 1.2rem; flex-wrap: wrap; }
+  .footer-affiliation img { height: 36px; opacity: 0.7; }
+  .footer-affiliation p { font-size: 0.78rem; color: var(--gray-dark); max-width: 400px; }
+  .footer-bottom { max-width: var(--max-w); margin: 1.5rem auto 0; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--gray-dark); text-align: center; letter-spacing: 0.5px; }
+
+  /* ==========================================================================
+     RESPONSIVE
+     ========================================================================== */
+  @media (max-width: 980px) {
+    .fh-book-grid { grid-template-columns: 1fr; }
+    .fh-quote { position: static; }
+  }
+  @media (max-width: 768px) {
+    .nav-links { position: fixed; top: var(--nav-height); left: 0; right: 0; bottom: 0; background: var(--black); flex-direction: column; padding: 2rem; gap: 0; align-items: stretch; overflow-y: auto; transform: translateX(100%); transition: transform var(--transition); }
+    .nav-links.open { transform: translateX(0); }
+    .nav-links a { padding: 0.9rem 0; font-size: 1rem; }
+    .nav-toggle { display: block; }
+    .fh-hero { min-height: 0; padding-bottom: 3.5rem; }
+    .fh-stats { gap: 1.6rem; }
+    .fh-form-grid { grid-template-columns: 1fr; }
+    .fh-field { grid-column: 1 / -1; }
+    .cal-cell .free { font-size: 0.52rem; }
+    section { padding: 4.5rem clamp(1.2rem, 4vw, 3rem); }
+  }
+
+  /* Respect users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="images/Engineering_Society_Logo_TAS__White___2_.png" alt="TUES Logo"></a>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html#about">About</a>
+    <a href="index.html#events">Events</a>
+    <a href="index.html#professional">Professional</a>
+    <a href="fencing.html" class="active">Fencing Hire</a>
+    <a href="index.html#sponsors">Sponsors</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="https://campus.hellorubric.com/?s=1439" target="_blank" class="btn-join">Join Now</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section class="fh-hero">
+  <div class="fh-hero-inner">
+    <p class="section-label">Society Services</p>
+    <h1>Fencing <span class="accent">Hire</span></h1>
+    <p class="lede">TUES owns a stock of temporary fencing panels, available for hire by other clubs, societies and community events. Check live availability, get an instant quote, and request a booking below.</p>
+    <div class="fh-hero-btns">
+      <a href="#book" class="primary">Check availability</a>
+      <a href="#terms" class="secondary">Hire terms</a>
+    </div>
+    <!-- Counters tick up once bookings data loads (see fencing.js) -->
+    <div class="fh-stats">
+      <div class="fh-stat loading" id="statTotal"><h3>—</h3><p>Panels in stock</p></div>
+      <div class="fh-stat loading" id="statFree"><h3>—</h3><p>Available today</p></div>
+      <div class="fh-stat loading" id="statRate"><h3>—</h3><p>Per panel / week</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="red-bar"></div>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-inner">
+    <p class="section-label reveal">Simple Process</p>
+    <h2 class="section-title reveal">How It Works</h2>
+    <div class="fh-steps">
+      <div class="fh-step reveal">
+        <div class="num">1</div>
+        <h3>Pick your dates</h3>
+        <p>Click your start and end dates on the availability calendar. Each day shows how many panels are still free, so you can see clashes before they happen.</p>
+      </div>
+      <div class="fh-step reveal">
+        <div class="num">2</div>
+        <h3>Get an instant quote</h3>
+        <p>Choose your panel count and delivery option — the price updates live as you go. No surprises, and the refundable bond is shown up front.</p>
+      </div>
+      <div class="fh-step reveal">
+        <div class="num">3</div>
+        <h3>Request your booking</h3>
+        <p>Submit the form and you'll get a reference number and confirmation email straight away. The committee reviews and confirms every booking, usually within 2 business days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AVAILABILITY + BOOKING -->
+<section id="book" style="background: var(--black-soft);">
+  <div class="section-inner">
+    <p class="section-label reveal">Live Availability</p>
+    <h2 class="section-title reveal">Check &amp; Book</h2>
+    <p class="section-subtitle reveal">Select your hire dates on the calendar, fill in your details, and the quote on the right updates as you go.</p>
+
+    <div class="fh-book-grid">
+      <!-- LEFT: calendar + form -->
+      <div>
+        <div class="fh-panel reveal">
+          <div class="fh-panel-title">Availability calendar</div>
+          <div id="calWrap">
+            <!-- Calendar is rendered by fencing.js. Skeleton shows during fetch. -->
+          </div>
+          <div class="cal-legend">
+            <span class="l-free"><i></i>All panels free</span>
+            <span class="l-partial"><i></i>Partly booked</span>
+            <span class="l-full"><i></i>Booked out</span>
+            <span class="l-sel"><i></i>Your dates</span>
+          </div>
+          <p class="cal-hint">Click a <strong>start date</strong>, then an <strong>end date</strong>. Click again to start over. Bookings need at least <strong><span id="hintNotice">2</span> days' notice</strong>.</p>
+        </div>
+
+        <div class="fh-panel reveal">
+          <div class="fh-panel-title">Your booking request</div>
+
+          <!-- The form. Submission is handled in JS (AJAX to Web3Forms) so we can
+               show toasts + the success panel instead of leaving the page. -->
+          <form id="bookForm" novalidate>
+            <div class="fh-form-grid">
+              <div class="fh-field">
+                <label for="fName">Your name <span class="req">*</span></label>
+                <input class="fh-input" type="text" id="fName" name="name" placeholder="Jane Citizen" autocomplete="name" required>
+              </div>
+              <div class="fh-field">
+                <label for="fOrg">Club / organisation</label>
+                <input class="fh-input" type="text" id="fOrg" name="organisation" placeholder="UTAS Chess Club" autocomplete="organization">
+              </div>
+              <div class="fh-field">
+                <label for="fEmail">Email <span class="req">*</span></label>
+                <input class="fh-input" type="email" id="fEmail" name="email" placeholder="you@example.com" autocomplete="email" required>
+              </div>
+              <div class="fh-field">
+                <label for="fPhone">Phone</label>
+                <input class="fh-input" type="tel" id="fPhone" name="phone" placeholder="04xx xxx xxx" autocomplete="tel">
+              </div>
+
+              <div class="fh-field wide">
+                <label>Hire dates <span class="req">*</span></label>
+                <div class="fh-dates">
+                  <div class="fh-date-chip" id="chipStart">Pick a start date</div>
+                  <span class="arrow">→</span>
+                  <div class="fh-date-chip" id="chipEnd">Pick an end date</div>
+                </div>
+                <button type="button" class="fh-dates-clear" id="clearDates" hidden>Clear dates</button>
+              </div>
+
+              <div class="fh-field">
+                <label for="fPanels">Panels needed <span class="req">*</span></label>
+                <div class="fh-stepper">
+                  <button type="button" id="panelsMinus" aria-label="Fewer panels">−</button>
+                  <input class="fh-input" type="number" id="fPanels" name="panels" value="10" min="1" inputmode="numeric">
+                  <button type="button" id="panelsPlus" aria-label="More panels">+</button>
+                </div>
+              </div>
+              <div class="fh-field">
+                <label>Delivery option <span class="req">*</span></label>
+                <div class="fh-seg" id="deliverySeg" role="radiogroup" aria-label="Delivery option">
+                  <button type="button" class="on" data-val="self">Self-collect (free)</button>
+                  <button type="button" data-val="delivery">Delivery + pickup</button>
+                </div>
+              </div>
+
+              <div class="fh-field wide" id="addrField" hidden>
+                <label for="fAddr">Delivery address <span class="req">*</span></label>
+                <input class="fh-input" type="text" id="fAddr" name="delivery_address" placeholder="Event address (Hobart area)">
+              </div>
+
+              <div class="fh-field wide">
+                <label for="fNotes">Notes</label>
+                <textarea class="fh-input" id="fNotes" name="notes" placeholder="What's the event? Anything we should know — access, timing, surface type…"></textarea>
+              </div>
+
+              <div class="fh-field wide">
+                <label class="fh-check" id="tcWrap">
+                  <input type="checkbox" id="fTerms">
+                  <span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5.5 5.5L20 6.5"/></svg></span>
+                  <span class="txt">I accept the <a href="#terms">hire terms</a>, including responsibility for late-return fees and the replacement cost of damaged or lost panels while they're in our care.</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Honeypot — hidden from humans, catches basic spam bots -->
+            <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+
+            <button type="submit" class="fh-submit" id="submitBtn">Request booking</button>
+          </form>
+
+          <!-- Shown in place of the form after a successful submission -->
+          <div class="fh-success" id="successPanel">
+            <div class="tick"><svg viewBox="0 0 24 24"><path d="M4 12.5l5.5 5.5L20 6.5"/></svg></div>
+            <h3>Request sent</h3>
+            <div class="ref" id="successRef">TUES-FH-XXXXXX</div>
+            <p id="successMsg">We've emailed you a copy with this reference. Your booking is <strong>pending</strong> until the committee confirms it — usually within 2 business days.</p>
+            <p>Need to change or cancel? Reply to the confirmation email or use the button below, quoting your reference.</p>
+            <div class="actions">
+              <a href="#" id="successEditLink">Change / cancel request</a>
+              <a href="fencing.html">Make another booking</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: sticky live quote -->
+      <div class="fh-quote reveal">
+        <div class="fh-panel">
+          <div class="fh-panel-title">Your quote</div>
+          <div class="quote-empty" id="quoteEmpty">Pick dates and a panel count to see your price.</div>
+          <div class="quote-rows" id="quoteRows" hidden>
+            <div class="quote-row"><span class="k" id="qHireK">Hire</span><span class="v" id="qHireV">$0</span></div>
+            <div class="quote-row" id="qDeliveryRow" hidden><span class="k">Delivery + pickup</span><span class="v" id="qDeliveryV">$0</span></div>
+            <div class="quote-row" id="qMinRow" hidden><span class="k">Minimum hire adjustment</span><span class="v" id="qMinV">$0</span></div>
+            <div class="quote-row total"><span class="k">Estimated total</span><span class="v" id="qTotalV">$0</span></div>
+          </div>
+          <div class="quote-avail" id="quoteAvail"></div>
+          <p class="quote-note" id="quoteBondNote"></p>
+          <p class="quote-note">This is an estimate — the committee confirms the final price with your booking. Longer than <span id="noteMaxWeeks">6</span> weeks? <a href="mailto:president.engineering.utas@gmail.com?subject=Long-term%20fencing%20hire" style="color:var(--red)">Email us</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TERMS -->
+<section class="fh-terms-section" id="terms">
+  <div class="section-inner">
+    <p class="section-label reveal">The Fine Print</p>
+    <h2 class="section-title reveal">Hire Terms</h2>
+    <p class="section-subtitle reveal">Short version: look after the panels, bring them back on time, and the bond comes straight back to you.</p>
+    <div class="fh-terms-grid">
+      <div class="fh-term-card reveal">
+        <h3>Pricing &amp; Bond</h3>
+        <ul id="termsPricing">
+          <!-- Filled from fencing-config.js so the T&Cs never drift from the
+               actual rates. See fencing.js → renderTerms(). -->
+        </ul>
+      </div>
+      <div class="fh-term-card reveal">
+        <h3>Late Returns</h3>
+        <ul id="termsLate"></ul>
+      </div>
+      <div class="fh-term-card reveal">
+        <h3>Damage &amp; Loss</h3>
+        <ul id="termsDamage"></ul>
+      </div>
+      <div class="fh-term-card reveal">
+        <h3>Handover &amp; Condition</h3>
+        <ul>
+          <li>Panels are <strong>counted and condition-checked together</strong> at hire-out and again at return — both parties sign off the record.</li>
+          <li>Bookings are <strong>pending until confirmed</strong> by the committee (usually within 2 business days).</li>
+          <li>Self-collection is from the UTAS Sandy Bay campus at an agreed time. Bring a suitable vehicle — panels are bulky.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="images/Engineering_Society_Logo_TAS__Red___6_.png" alt="TUES Logo">
+      <p>Tasmanian University Engineering Society — connecting students with community, industry and unforgettable experiences since ~1991.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <a href="index.html#about">About Us</a>
+      <a href="index.html#professional">Professional</a>
+      <a href="index.html#events">Events</a>
+      <a href="fencing.html">Fencing Hire</a>
+      <a href="index.html#sponsors">Sponsors</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Get Involved</h4>
+      <a href="https://campus.hellorubric.com/?s=1439" target="_blank">Become a Member</a>
+      <a href="mailto:president.engineering.utas@gmail.com">Email Us</a>
+      <a href="https://tusa.org.au/engineering-society/" target="_blank">TUSA Page</a>
+    </div>
+    <div class="footer-col">
+      <h4>Follow Us</h4>
+      <a href="https://www.instagram.com/engisocietytas/" target="_blank">Instagram</a>
+      <a href="https://www.facebook.com/TasUniEngi/" target="_blank">Facebook</a>
+    </div>
+  </div>
+  <div class="footer-affiliation">
+    <img src="images/TUSA_Logo_Rev.png" alt="TUSA Logo">
+    <p>TUES is a SSAF funded society, affiliated with and supported by the Tasmanian University Student Association (TUSA).</p>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Tasmanian University Engineering Society. All rights reserved. &middot; Est. ~1991 &middot; A TUSA affiliated society.
+  </div>
+</footer>
+
+<!-- Toast notifications land here -->
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<!-- Config first (editable constants), then the page logic -->
+<script src="js/fencing-config.js"></script>
+<script src="js/fencing.js"></script>
+
+</body>
+</html>
