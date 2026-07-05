@@ -1,0 +1,62 @@
+{
+  "_readme": [
+    "TUES FENCING HIRE — BOOKINGS DATA. This file is the source of truth for the",
+    "availability calendar on fencing.html. Edit it on GitHub when a booking",
+    "request email arrives. Full instructions live in MAINTAINING.md.",
+    "",
+    "Each booking needs: ref, name, contact, panels, start, end, status.",
+    "  ref      — the reference from the booking email, e.g. TUES-FH-260718-K4QZ",
+    "  panels   — number of panels reserved (integer)",
+    "  start    — first day of hire, YYYY-MM-DD (inclusive)",
+    "  end      — last day of hire, YYYY-MM-DD (inclusive)",
+    "  status   — one of:",
+    "               pending    request received, holds stock on the calendar",
+    "               confirmed  approved by committee, holds stock",
+    "               declined   rejected — does NOT hold stock",
+    "               completed  panels returned — does NOT hold stock",
+    "  conditionLog — array of dated notes recording panel condition at",
+    "                 hire-out and return (internal record, not shown publicly).",
+    "",
+    "The three bookings below are SAMPLES so the calendar has something to show.",
+    "Delete them once real bookings exist."
+  ],
+  "updated": "2026-07-05",
+  "bookings": [
+    {
+      "ref": "TUES-FH-SAMPLE-001",
+      "name": "Sample: UTAS Science Society",
+      "contact": "sample@example.com",
+      "panels": 25,
+      "start": "2026-07-17",
+      "end": "2026-07-19",
+      "status": "confirmed",
+      "conditionLog": [
+        {
+          "date": "2026-07-05",
+          "type": "note",
+          "note": "Sample entry — 25 panels + 26 feet allocated, all good condition."
+        }
+      ]
+    },
+    {
+      "ref": "TUES-FH-SAMPLE-002",
+      "name": "Sample: College Market Day",
+      "contact": "sample2@example.com",
+      "panels": 40,
+      "start": "2026-08-01",
+      "end": "2026-08-02",
+      "status": "confirmed",
+      "conditionLog": []
+    },
+    {
+      "ref": "TUES-FH-SAMPLE-003",
+      "name": "Sample: Pending Request",
+      "contact": "sample3@example.com",
+      "panels": 15,
+      "start": "2026-07-24",
+      "end": "2026-07-31",
+      "status": "pending",
+      "conditionLog": []
+    }
+  ]
+}
