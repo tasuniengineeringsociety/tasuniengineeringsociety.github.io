@@ -57,8 +57,10 @@
   .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
   .hero-slides { position: absolute; inset: 0; }
   .hero-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.4s ease; }
-  .hero-slide.active { opacity: 1; }
+  .hero-slide.active { opacity: 1; animation: heroZoom 8s ease-out forwards; }
+  @keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.06); } }
   .hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.7) 80%, rgba(0,0,0,1) 100%); }
+  .hero-overlay::after { content: ''; position: absolute; inset: 0; opacity: 0.45; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"); }
   .hero-content { position: relative; z-index: 2; max-width: 800px; padding: 0 1.5rem; animation: heroIn 1.2s ease-out 0.2s both; }
   @keyframes heroIn { from { opacity: 0; transform: translateY(40px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
   .hero-logo { width: 180px; margin: 0 auto 2rem; filter: drop-shadow(0 4px 24px rgba(0,0,0,0.5)); }
@@ -73,8 +75,9 @@
   .hero-btns .secondary { border: 2px solid var(--white); color: var(--white); }
   .hero-btns .secondary:hover { background: var(--white); color: var(--black); }
   .hero-dots { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.6rem; z-index: 3; }
-  .hero-dots button { width: 10px; height: 10px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.3); background: transparent; cursor: pointer; transition: all var(--transition); padding: 0; }
-  .hero-dots button.active { background: var(--red); border-color: var(--red); transform: scale(1.3); }
+  .hero-dots button { width: 26px; height: 3px; border-radius: 2px; border: none; background: rgba(255,255,255,0.25); cursor: pointer; transition: all var(--transition); padding: 0; }
+  .hero-dots button:hover { background: rgba(255,255,255,0.5); }
+  .hero-dots button.active { background: var(--red); width: 44px; }
   .red-bar { height: 4px; background: var(--red); width: 100%; }
 
   section { padding: 6rem clamp(1.2rem, 4vw, 3rem); }
@@ -99,7 +102,9 @@
   .pro-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
   .pro-card { background: var(--black-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; transition: all var(--transition); }
   .pro-card:hover { border-color: var(--red); transform: translateY(-3px); box-shadow: 0 6px 24px var(--red-glow); }
-  .pro-card .pro-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+  .pro-card .pro-icon { width: 52px; height: 52px; border-radius: 10px; border: 1px solid var(--border); background: var(--black-soft); color: var(--red); display: flex; align-items: center; justify-content: center; margin-bottom: 1.1rem; transition: all var(--transition); }
+  .pro-card .pro-icon svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .pro-card:hover .pro-icon { background: var(--red); border-color: var(--red); color: var(--white); }
   .pro-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 1px; margin-bottom: 0.5rem; }
   .pro-card p { font-size: 0.85rem; color: var(--gray); line-height: 1.55; }
 
@@ -127,6 +132,8 @@
   .sponsor-grid { display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; justify-content: center; }
   .sponsor-card { background: var(--black-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem 2.5rem; display: flex; align-items: center; justify-content: center; transition: all var(--transition); min-width: 180px; }
   .sponsor-card:hover { border-color: var(--red); transform: translateY(-3px); box-shadow: 0 6px 24px rgba(0,0,0,0.4); }
+  .sponsor-card.vacant { border-style: dashed; }
+  .sponsor-card.vacant .sponsor-placeholder { color: var(--gray-dark); }
   .sponsor-card.gold { min-height: 120px; padding: 2.5rem 3rem; }
   .sponsor-card.silver { min-height: 100px; }
   .sponsor-card.bronze { min-height: 80px; padding: 1.5rem 2rem; }
@@ -150,7 +157,9 @@
   .contact-section { background: var(--black-soft); }
   .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
   .contact-item { display: flex; gap: 1rem; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--border); }
-  .contact-item .icon { width: 44px; height: 44px; border-radius: 50%; background: var(--black-card); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+  .contact-item .icon { width: 44px; height: 44px; border-radius: 10px; background: var(--black-card); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--red); flex-shrink: 0; transition: all var(--transition); }
+  .contact-item .icon svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .contact-item:hover .icon { background: var(--red); border-color: var(--red); color: var(--white); }
   .contact-item .label { font-size: 0.75rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
   .contact-item .value { font-size: 0.92rem; color: var(--white-dim); margin-top: 2px; }
   .contact-item .value a { color: var(--red); }
@@ -160,7 +169,8 @@
   .social-link:hover { border-color: var(--red); background: var(--red); }
   .social-link svg { width: 20px; height: 20px; fill: var(--white); }
   .contact-map-box { width: 100%; aspect-ratio: 4/3; background: var(--black-card); border: 1px solid var(--border); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; }
-  .contact-map-box span.pin { font-size: 2.5rem; }
+  .contact-map-box span.pin { color: var(--red); }
+  .contact-map-box span.pin svg { width: 44px; height: 44px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
   .contact-map-box span.place { color: var(--gray); font-size: 0.95rem; font-weight: 600; }
   .contact-map-box span.sub { color: var(--gray-dark); font-size: 0.82rem; }
 
@@ -197,6 +207,12 @@
 
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
 </style>
 </head>
 <body>
@@ -240,7 +256,7 @@
     <img src="images/Engineering_Society_Logo_TAS__White___2_.png" alt="TUES" class="hero-logo">
     <h1>Tasmanian University<br><span class="accent">Engineering Society</span></h1>
     <div class="hero-since">Est. 1924 &middot; 100+ Years of Student Community</div>
-    <p>One of the most active and longest-running societies on campus. We delivering social events, industry connections, professional development and unforgettable experiences for all UTAS students.</p>
+    <p>One of the most active and longest-running societies on campus. We deliver social events, industry connections, professional development and unforgettable experiences for all UTAS students.</p>
     <div class="hero-btns">
       <a href="https://campus.hellorubric.com/?s=1439" target="_blank" class="primary">Become a Member</a>
       <a href="#events" class="secondary">Our Events</a>
@@ -265,8 +281,8 @@
         </div>
         <p>Our goal is to create a strong student community while connecting students with industry and new experiences both on and off campus.</p>
         <div class="stat-row">
-          <div class="stat"><h3>1991</h3><p>Established</p></div>
-          <div class="stat"><h3>1000+</h3><p>Event Attendees</p></div>
+          <div class="stat"><h3>1924</h3><p>Established</p></div>
+          <div class="stat"><h3 data-count="1000" data-suffix="+">1000+</h3><p>Event Attendees</p></div>
           <div class="stat"><h3>All</h3><p>UTAS Welcome</p></div>
         </div>
         <div class="ssaf-badge">
@@ -287,27 +303,27 @@
     <p class="section-subtitle reveal">TUES isn't just about social events — we play an active role in supporting students' professional and academic journeys.</p>
     <div class="pro-grid">
       <div class="pro-card reveal">
-        <div class="pro-icon">🏭</div>
+        <div class="pro-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21h20"/><path d="M4 21V10.5l5 3v-3l5 3V6.5h6V21"/><path d="M16.5 10.5h1.5M16.5 14h1.5M16.5 17.5h1.5"/></svg></div>
         <h3>Industry Networking</h3>
         <p>Panels, site visits and networking nights connecting students directly with engineering professionals and employers across Tasmania.</p>
       </div>
       <div class="pro-card reveal">
-        <div class="pro-icon">👩‍🔬</div>
+        <div class="pro-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20c.6-3.4 2.8-5.2 5.5-5.2s4.9 1.8 5.5 5.2"/><circle cx="17" cy="9.5" r="2.4"/><path d="M15.5 15.4c2.7.2 4.4 1.7 5 4.6"/></svg></div>
         <h3>Women in Engineering</h3>
         <p>Morning teas, mentoring and community-building events supporting and celebrating women in engineering at UTAS.</p>
       </div>
       <div class="pro-card reveal">
-        <div class="pro-icon">🏎️</div>
+        <div class="pro-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 19.5a9 9 0 1 1 13.6 0"/><path d="M12 14l4.2-4.7"/><circle cx="12" cy="14" r="1.6"/></svg></div>
         <h3>FSAE</h3>
         <p>Supporting student-led technical projects like Formula SAE, where students design, build and race electric cars against other universities.</p>
       </div>
       <div class="pro-card reveal">
-        <div class="pro-icon">📋</div>
+        <div class="pro-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4.5V3h6v1.5"/><path d="M9 10h6M9 13.5h6M9 17h3.5"/></svg></div>
         <h3>Student Consultation</h3>
         <p>Engaging with the university on student experience, providing feedback on courses and representing engineering students' interests.</p>
       </div>
       <div class="pro-card reveal">
-        <div class="pro-icon">🎓</div>
+        <div class="pro-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9.5L12 4.5l9.5 5L12 14.5z"/><path d="M6.5 12v4.4c0 1.2 2.4 2.6 5.5 2.6s5.5-1.4 5.5-2.6V12"/><path d="M21.5 9.5V15"/></svg></div>
         <h3>Careers &amp; Development</h3>
         <p>Workshops, resume reviews and career fairs to help students prepare for the transition from university to industry.</p>
       </div>
@@ -377,30 +393,30 @@
     <div class="sponsor-tier reveal">
       <div class="tier-label gold">Gold Partners</div>
       <div class="sponsor-grid">
-        <div class="sponsor-card gold"><span class="sponsor-placeholder">Sponsor Logo</span></div>
-        <div class="sponsor-card gold"><span class="sponsor-placeholder">Sponsor Logo</span></div>
+        <div class="sponsor-card gold vacant"><span class="sponsor-placeholder">Your logo here</span></div>
+        <div class="sponsor-card gold vacant"><span class="sponsor-placeholder">Your logo here</span></div>
       </div>
     </div>
     <div class="sponsor-tier reveal">
       <div class="tier-label silver">Silver Partners</div>
       <div class="sponsor-grid">
-        <div class="sponsor-card silver"><span class="sponsor-placeholder">Sponsor Logo</span></div>
-        <div class="sponsor-card silver"><span class="sponsor-placeholder">Sponsor Logo</span></div>
-        <div class="sponsor-card silver"><span class="sponsor-placeholder">Sponsor Logo</span></div>
+        <div class="sponsor-card silver vacant"><span class="sponsor-placeholder">Your logo here</span></div>
+        <div class="sponsor-card silver vacant"><span class="sponsor-placeholder">Your logo here</span></div>
+        <div class="sponsor-card silver vacant"><span class="sponsor-placeholder">Your logo here</span></div>
       </div>
     </div>
     <div class="sponsor-tier reveal">
       <div class="tier-label bronze">Bronze Partners</div>
       <div class="sponsor-grid">
-        <div class="sponsor-card bronze"><span class="sponsor-placeholder">Sponsor Logo</span></div>
-        <div class="sponsor-card bronze"><span class="sponsor-placeholder">Sponsor Logo</span></div>
-        <div class="sponsor-card bronze"><span class="sponsor-placeholder">Sponsor Logo</span></div>
-        <div class="sponsor-card bronze"><span class="sponsor-placeholder">Sponsor Logo</span></div>
+        <div class="sponsor-card bronze vacant"><span class="sponsor-placeholder">Your logo here</span></div>
+        <div class="sponsor-card bronze vacant"><span class="sponsor-placeholder">Your logo here</span></div>
+        <div class="sponsor-card bronze vacant"><span class="sponsor-placeholder">Your logo here</span></div>
+        <div class="sponsor-card bronze vacant"><span class="sponsor-placeholder">Your logo here</span></div>
       </div>
     </div>
     <div class="sponsor-cta reveal">
       <h3>Become a Sponsor</h3>
-      <p>Partner with TUES and connect your brand with Tasmania's most active engineering student community. Over 35 years of longevity and commitment from the student body means a strong return on your investment.</p>
+      <p>Partner with TUES and connect your brand with Tasmania's most active engineering student community. Over a century of longevity and commitment from the student body means a strong return on your investment.</p>
       <a href="mailto:president.engineering.utas@gmail.com?subject=Sponsorship%20Enquiry%20-%20TUES" class="sponsor-cta-btn">Get in Touch</a>
     </div>
   </div>
@@ -423,15 +439,15 @@
     <div class="contact-grid">
       <div class="reveal">
         <div class="contact-item">
-          <div class="icon">✉</div>
+          <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg></div>
           <div><div class="label">Email</div><div class="value"><a href="mailto:president.engineering.utas@gmail.com">president.engineering.utas@gmail.com</a></div></div>
         </div>
         <div class="contact-item">
-          <div class="icon">🎓</div>
+          <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9.5L12 4.5l9.5 5L12 14.5z"/><path d="M6.5 12v4.4c0 1.2 2.4 2.6 5.5 2.6s5.5-1.4 5.5-2.6V12"/></svg></div>
           <div><div class="label">University</div><div class="value">University of Tasmania</div></div>
         </div>
         <div class="contact-item">
-          <div class="icon">📋</div>
+          <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 16.5c.5-1.6 1.6-2.4 3-2.4s2.5.8 3 2.4M15.5 9.5h3M15.5 13h3"/></svg></div>
           <div><div class="label">Membership</div><div class="value"><a href="https://campus.hellorubric.com/?s=1439" target="_blank">Sign up via Rubric</a></div></div>
         </div>
         <div class="social-links">
@@ -444,7 +460,7 @@
         </div>
       </div>
       <div class="contact-map-box reveal">
-        <span class="pin">📍</span>
+        <span class="pin"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5S5 15.7 5 10.2A7 7 0 0 1 19 10.2c0 5.5-7 11.3-7 11.3z"/><circle cx="12" cy="10" r="2.6"/></svg></span>
         <span class="place">University of Tasmania</span>
         <span class="sub">Hobart, TAS, Australia</span>
       </div>
@@ -457,7 +473,7 @@
   <div class="footer-inner">
     <div class="footer-brand">
       <img src="images/Engineering_Society_Logo_TAS__Red___6_.png" alt="TUES Logo">
-      <p>Tasmanian University Engineering Society — connecting students with community, industry and unforgettable experiences since ~1991.</p>
+      <p>Tasmanian University Engineering Society — connecting students with community, industry and unforgettable experiences since 1924.</p>
     </div>
     <div class="footer-col">
       <h4>Navigate</h4>
@@ -486,7 +502,7 @@
     <p>TUES is a SSAF funded society, affiliated with and supported by the Tasmanian University Student Association (TUSA).</p>
   </div>
   <div class="footer-bottom">
-    &copy; 2026 Tasmanian University Engineering Society. All rights reserved. &middot; Est. ~1991 &middot; A TUSA affiliated society.
+    &copy; 2026 Tasmanian University Engineering Society. All rights reserved. &middot; Est. 1924 &middot; A TUSA affiliated society.
   </div>
 </footer>
 
@@ -516,6 +532,26 @@
     entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
+  // Count-up animation for stats with a data-count attribute
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var counterObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (!e.isIntersecting) return;
+      counterObs.unobserve(e.target);
+      var target = parseInt(e.target.dataset.count, 10);
+      var suffix = e.target.dataset.suffix || '';
+      if (reduced) { e.target.textContent = target + suffix; return; }
+      var start = performance.now();
+      (function tick(t) {
+        var p = Math.min(1, (t - start) / 1200);
+        var eased = 1 - Math.pow(1 - p, 3);
+        e.target.textContent = Math.round(target * eased) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      })(start);
+    });
+  }, { threshold: 0.6 });
+  document.querySelectorAll('[data-count]').forEach(function(el) { counterObs.observe(el); });
 </script>
 
 </body>
