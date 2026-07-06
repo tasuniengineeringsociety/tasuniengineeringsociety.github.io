@@ -69,5 +69,5 @@ const FENCING_CONFIG = {
   // Web3Forms access key — get a free one at https://web3forms.com
   // (enter the society email, verify, paste the key here).
   // Until this is replaced, the form shows a helpful error instead of sending.
-  WEB3FORMS_ACCESS_KEY: "REPLACE_WITH_YOUR_WEB3FORMS_ACCESS_KEY"
+  WEB3FORMS_ACCESS_KEY: "2e32bd28-2823-4e4e-ad71-0ccd95325fe5"
 };
