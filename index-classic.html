@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; base-uri 'self'; frame-ancestors 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.web3forms.com; form-action 'self' mailto: https://api.web3forms.com; base-uri 'self'; frame-ancestors 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TUES — Tasmanian University Engineering Society</title>
@@ -11,16 +11,9 @@
 <meta property="og:image" content="https://tasuniengineeringsociety.github.io/images/TobyRudovMedia_67_.jpg">
 <meta property="og:url" content="https://tasuniengineeringsociety.github.io">
 <meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  /* ==========================================================================
-     CHAKRA PETCH — self-hosted (OFL licensed, files in fonts/). Squared-off
-     technical typeface used across the whole site. Weights: 300/400/500/600/700.
-     ========================================================================== */
-  @font-face { font-family: 'Chakra Petch'; font-weight: 300; font-style: normal; font-display: swap; src: url('fonts/ChakraPetch-Light.woff2') format('woff2'); }
-  @font-face { font-family: 'Chakra Petch'; font-weight: 400; font-style: normal; font-display: swap; src: url('fonts/ChakraPetch-Regular.woff2') format('woff2'); }
-  @font-face { font-family: 'Chakra Petch'; font-weight: 500; font-style: normal; font-display: swap; src: url('fonts/ChakraPetch-Medium.woff2') format('woff2'); }
-  @font-face { font-family: 'Chakra Petch'; font-weight: 600; font-style: normal; font-display: swap; src: url('fonts/ChakraPetch-SemiBold.woff2') format('woff2'); }
-  @font-face { font-family: 'Chakra Petch'; font-weight: 700; font-style: normal; font-display: swap; src: url('fonts/ChakraPetch-Bold.woff2') format('woff2'); }
   :root {
     --black: #000000;
     --black-soft: #0a0a0a;
@@ -36,13 +29,13 @@
     --border: #222222;
     --nav-height: 76px;
     --max-w: 1200px;
-    --radius: 0;
+    --radius: 8px;
     --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --transition: 0.35s var(--ease);
   }
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { font-family: 'Chakra Petch', sans-serif; background: var(--black); color: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body { font-family: 'Manrope', sans-serif; background: var(--black); color: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
   a { color: inherit; text-decoration: none; }
   img { max-width: 100%; display: block; }
   ul { list-style: none; }
@@ -50,18 +43,18 @@
   .nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-height); background: rgba(0,0,0,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(1.2rem, 4vw, 3rem); }
   .nav-logo img { height: 48px; }
   .nav-links { display: flex; gap: 0.2rem; align-items: center; }
-  .nav-links a { padding: 0.55rem 0.85rem; border-radius: 0; font-size: 0.85rem; font-weight: 600; color: var(--gray); letter-spacing: 0.3px; transition: color var(--transition), background var(--transition); }
+  .nav-links a { padding: 0.55rem 0.85rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; color: var(--gray); letter-spacing: 0.3px; transition: color var(--transition), background var(--transition); }
   .nav-links a:hover { color: var(--white); background: var(--black-card); }
   .nav-links .dropdown { position: relative; }
   .nav-links .dropdown > a::after { content: '▾'; margin-left: 4px; font-size: 0.65rem; opacity: 0.4; }
-  .nav-links .dropdown-menu { position: absolute; top: calc(100% + 4px); left: 0; background: var(--black-card); border: 1px solid var(--border); border-radius: 0; padding: 0.4rem 0; min-width: 210px; opacity: 0; visibility: hidden; transform: translateY(8px); transition: all var(--transition); box-shadow: 0 16px 48px rgba(0,0,0,0.6); }
+  .nav-links .dropdown-menu { position: absolute; top: calc(100% + 4px); left: 0; background: var(--black-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.4rem 0; min-width: 210px; opacity: 0; visibility: hidden; transform: translateY(8px); transition: all var(--transition); box-shadow: 0 16px 48px rgba(0,0,0,0.6); }
   .nav-links .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
   .dropdown-menu a { display: block; padding: 0.6rem 1.1rem; font-size: 0.84rem; border-radius: 0; }
   .dropdown-menu a:hover { background: var(--black-card-hover); color: var(--red); }
-  .btn-join { background: var(--red) !important; color: var(--white) !important; font-weight: 700; border-radius: 0; padding: 0.55rem 1.2rem !important; letter-spacing: 0.5px; text-transform: uppercase; font-size: 0.78rem !important; transition: background var(--transition), transform 0.15s, box-shadow var(--transition); }
+  .btn-join { background: var(--red) !important; color: var(--white) !important; font-weight: 700; border-radius: 6px; padding: 0.55rem 1.2rem !important; letter-spacing: 0.5px; text-transform: uppercase; font-size: 0.78rem !important; transition: background var(--transition), transform 0.15s, box-shadow var(--transition); }
   .btn-join:hover { background: var(--red-dark) !important; transform: translateY(-1px); box-shadow: 0 4px 20px var(--red-glow); }
   .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
-  .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--white); margin: 5px 0; border-radius: 0; transition: var(--transition); }
+  .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--white); margin: 5px 0; border-radius: 2px; transition: var(--transition); }
 
   .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
   .hero-slides { position: absolute; inset: 0; }
@@ -73,55 +66,58 @@
   .hero-content { position: relative; z-index: 2; max-width: 800px; padding: 0 1.5rem; animation: heroIn 1.2s ease-out 0.2s both; }
   @keyframes heroIn { from { opacity: 0; transform: translateY(40px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
   .hero-logo { width: 180px; margin: 0 auto 2rem; filter: drop-shadow(0 4px 24px rgba(0,0,0,0.5)); }
-  .hero h1 { font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: clamp(3rem, 8vw, 5.5rem); line-height: 1; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.2rem; }
+  .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 8vw, 5.5rem); line-height: 1; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.2rem; }
   .hero h1 .accent { color: var(--red); }
-  .hero .hero-since { font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 4px; color: var(--gray); text-transform: uppercase; margin-bottom: 1.5rem; }
+  .hero .hero-since { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 4px; color: var(--gray); text-transform: uppercase; margin-bottom: 1.5rem; }
   .hero p { font-size: 1.05rem; color: var(--white-dim); margin-bottom: 2.5rem; max-width: 560px; margin-inline: auto; opacity: 0.85; }
   .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-  .hero-btns a { padding: 0.85rem 2rem; border-radius: 0; font-weight: 700; font-size: 0.88rem; letter-spacing: 0.8px; text-transform: uppercase; transition: all var(--transition); }
+  .hero-btns a { padding: 0.85rem 2rem; border-radius: 6px; font-weight: 700; font-size: 0.88rem; letter-spacing: 0.8px; text-transform: uppercase; transition: all var(--transition); }
   .hero-btns .primary { background: var(--red); color: var(--white); box-shadow: 0 4px 24px var(--red-glow); }
   .hero-btns .primary:hover { background: var(--red-dark); transform: translateY(-2px); }
   .hero-btns .secondary { border: 2px solid var(--white); color: var(--white); }
   .hero-btns .secondary:hover { background: var(--white); color: var(--black); }
   .hero-dots { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.6rem; z-index: 3; }
-  .hero-dots button { width: 26px; height: 3px; border-radius: 0; border: none; background: rgba(255,255,255,0.25); cursor: pointer; transition: all var(--transition); padding: 0; }
+  .hero-dots button { width: 26px; height: 3px; border-radius: 2px; border: none; background: rgba(255,255,255,0.25); cursor: pointer; transition: all var(--transition); padding: 0; }
   .hero-dots button:hover { background: rgba(255,255,255,0.5); }
   .hero-dots button.active { background: var(--red); width: 44px; }
   .red-bar { height: 4px; background: var(--red); width: 100%; }
 
   section { padding: 6rem clamp(1.2rem, 4vw, 3rem); }
   .section-inner { max-width: var(--max-w); margin: 0 auto; }
-  .section-label { font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 4px; text-transform: uppercase; color: var(--red); margin-bottom: 0.5rem; }
-  .section-title { font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: clamp(2rem, 5vw, 3rem); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem; }
+  .section-label { font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; letter-spacing: 4px; text-transform: uppercase; color: var(--red); margin-bottom: 0.5rem; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3rem); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem; }
   .section-subtitle { color: var(--gray); max-width: 620px; font-size: 0.95rem; margin-bottom: 3.5rem; }
 
   .about-section { background: var(--black-soft); }
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
   .about-text p { color: var(--white-dim); margin-bottom: 1.2rem; font-size: 0.95rem; }
   .about-text .highlight { border-left: 3px solid var(--red); padding-left: 1.2rem; color: var(--white); font-weight: 600; font-size: 1rem; margin: 1.8rem 0; }
-  .about-img { border-radius: 0; width: 100%; aspect-ratio: 3/2; object-fit: cover; border: 1px solid var(--border); }
+  .about-img { border-radius: var(--radius); width: 100%; aspect-ratio: 3/2; object-fit: cover; border: 1px solid var(--border); }
   .stat-row { display: flex; gap: 2.5rem; margin-top: 2rem; }
-  .stat h3 { font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 2.4rem; color: var(--red); line-height: 1; }
+  .stat h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; color: var(--red); line-height: 1; }
   .stat p { font-size: 0.8rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-  .ssaf-badge { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1.5rem; padding: 0.7rem 1.2rem; background: var(--black-card); border: 1px solid var(--border); border-radius: 0; font-size: 0.8rem; color: var(--gray); }
+  .ssaf-badge { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1.5rem; padding: 0.7rem 1.2rem; background: var(--black-card); border: 1px solid var(--border); border-radius: 6px; font-size: 0.8rem; color: var(--gray); }
   .ssaf-badge img { height: 28px; opacity: 0.8; }
 
   /* Professional / Academic */
   .pro-section { background: var(--black); }
-  /* WHAT WE DO — event photos with plain captions, then a text list */
-  .events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 4.5rem; }
-  .event-card { margin: 0; overflow: hidden; }
-  .event-card-img { height: 240px; background-size: cover; background-position: center; border: 1px solid var(--border); filter: grayscale(0.15); transition: filter var(--transition), transform var(--transition); }
-  .event-card:hover .event-card-img { filter: grayscale(0); transform: translateY(-4px); border-color: var(--red); }
-  .event-card figcaption { margin-top: 0.9rem; font-family: 'Chakra Petch', sans-serif; font-weight: 600; font-size: 0.98rem; letter-spacing: 0.5px; color: var(--white-dim); }
+  .pro-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+  .pro-card { background: var(--black-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; transition: all var(--transition); }
+  .pro-card:hover { border-color: var(--red); transform: translateY(-3px); box-shadow: 0 6px 24px var(--red-glow); }
+  .pro-card .pro-icon { width: 52px; height: 52px; border-radius: 10px; border: 1px solid var(--border); background: var(--black-soft); color: var(--red); display: flex; align-items: center; justify-content: center; margin-bottom: 1.1rem; transition: all var(--transition); }
+  .pro-card .pro-icon svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .pro-card:hover .pro-icon { background: var(--red); border-color: var(--red); color: var(--white); }
+  .pro-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 1px; margin-bottom: 0.5rem; }
+  .pro-card p { font-size: 0.85rem; color: var(--gray); line-height: 1.55; }
 
-  /* Text list of activities — lines with headings, no cards, no icons */
-  .wwd-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--border); }
-  .wwd-item { padding: 1.8rem 2rem 1.8rem 0; border-bottom: 1px solid var(--border); }
-  .wwd-item:nth-child(odd) { padding-right: 3rem; border-right: 1px solid var(--border); }
-  .wwd-item:nth-child(even) { padding-left: 2rem; }
-  .wwd-item h3 { font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 1.15rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.4rem; color: var(--white); }
-  .wwd-item p { font-size: 0.9rem; color: var(--gray); line-height: 1.6; max-width: 46ch; }
+  .events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
+  .event-card { background: var(--black-card); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition); }
+  .event-card:hover { transform: translateY(-5px); border-color: var(--red); box-shadow: 0 8px 32px var(--red-glow); }
+  .event-card-img { height: 200px; background-size: cover; background-position: center; position: relative; }
+  .event-card-img .tag { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--red); color: var(--white); font-size: 0.65rem; font-weight: 800; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 4px; letter-spacing: 1.5px; }
+  .event-card-body { padding: 1.4rem; }
+  .event-card-body h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 1px; margin-bottom: 0.4rem; }
+  .event-card-body p { font-size: 0.88rem; color: var(--gray); line-height: 1.55; }
 
   .photo-strip { padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
   .photo-strip img { width: 100%; height: 280px; object-fit: cover; filter: grayscale(20%); transition: filter 0.5s ease; }
@@ -130,13 +126,13 @@
   .sponsors-section { background: var(--black-soft); }
   .sponsor-tier { margin-bottom: 3.5rem; }
   .sponsor-tier:last-child { margin-bottom: 0; }
-  .tier-label { font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.5rem; text-align: center; display: flex; align-items: center; gap: 1.5rem; }
+  .tier-label { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.5rem; text-align: center; display: flex; align-items: center; gap: 1.5rem; }
   .tier-label::before, .tier-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
   .tier-label.gold { color: #f0c040; }
   .tier-label.silver { color: #b0b8c4; }
   .tier-label.bronze { color: #c88a5a; }
   .sponsor-grid { display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; justify-content: center; }
-  .sponsor-card { background: var(--black-card); border: 1px solid var(--border); border-radius: 0; padding: 2rem 2.5rem; display: flex; align-items: center; justify-content: center; transition: all var(--transition); min-width: 180px; }
+  .sponsor-card { background: var(--black-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem 2.5rem; display: flex; align-items: center; justify-content: center; transition: all var(--transition); min-width: 180px; }
   .sponsor-card:hover { border-color: var(--red); transform: translateY(-3px); box-shadow: 0 6px 24px rgba(0,0,0,0.4); }
   .sponsor-card.vacant { border-style: dashed; }
   .sponsor-card.vacant .sponsor-placeholder { color: var(--gray-dark); }
@@ -146,37 +142,45 @@
   .sponsor-placeholder { color: var(--gray); font-weight: 700; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
   .sponsor-card.gold .sponsor-placeholder { font-size: 1.2rem; }
   .sponsor-card.bronze .sponsor-placeholder { font-size: 0.85rem; }
-  .sponsor-cta { margin-top: 4rem; text-align: center; background: var(--black-card); border: 1px solid var(--border); border-radius: 0; padding: 3rem 2rem; }
-  .sponsor-cta h3 { font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 1.8rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.8rem; }
+  .sponsor-cta { margin-top: 4rem; text-align: center; background: var(--black-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 3rem 2rem; }
+  .sponsor-cta h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.8rem; }
   .sponsor-cta p { color: var(--gray); max-width: 500px; margin: 0 auto 1.8rem; font-size: 0.92rem; }
-  .sponsor-cta-btn { display: inline-block; padding: 0.8rem 2rem; border-radius: 0; background: var(--red); color: var(--white); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: all var(--transition); }
+  .sponsor-cta-btn { display: inline-block; padding: 0.8rem 2rem; border-radius: 6px; background: var(--red); color: var(--white); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: all var(--transition); }
   .sponsor-cta-btn:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 4px 20px var(--red-glow); }
 
   .cta-section { background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 50%, #e8282f 100%); text-align: center; position: relative; overflow: hidden; }
   .cta-section::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(0,0,0,0.05) 40px, rgba(0,0,0,0.05) 80px); }
   .cta-content { position: relative; z-index: 1; }
-  .cta-content h2 { font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: clamp(2.2rem, 5vw, 3.5rem); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem; }
+  .cta-content h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 5vw, 3.5rem); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem; }
   .cta-content p { font-size: 1.05rem; max-width: 520px; margin: 0 auto 2rem; opacity: 0.9; }
-  .cta-btn { display: inline-block; padding: 0.9rem 2.5rem; border-radius: 0; background: var(--white); color: var(--red); font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: all var(--transition); }
+  .cta-btn { display: inline-block; padding: 0.9rem 2.5rem; border-radius: 6px; background: var(--white); color: var(--red); font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: all var(--transition); }
   .cta-btn:hover { background: var(--black); color: var(--white); transform: translateY(-2px); }
 
   .contact-section { background: var(--black-soft); }
-  .contact-grid { display: grid; grid-template-columns: 1fr; gap: 4rem; align-items: start; max-width: 640px; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
   .contact-item { display: flex; gap: 1rem; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+  .contact-item .icon { width: 44px; height: 44px; border-radius: 10px; background: var(--black-card); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--red); flex-shrink: 0; transition: all var(--transition); }
+  .contact-item .icon svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .contact-item:hover .icon { background: var(--red); border-color: var(--red); color: var(--white); }
   .contact-item .label { font-size: 0.75rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
   .contact-item .value { font-size: 0.92rem; color: var(--white-dim); margin-top: 2px; }
   .contact-item .value a { color: var(--red); }
   .contact-item .value a:hover { text-decoration: underline; }
   .social-links { display: flex; gap: 0.8rem; margin-top: 2rem; }
-  .social-link { width: 48px; height: 48px; border-radius: 0; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; transition: all var(--transition); }
+  .social-link { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; transition: all var(--transition); }
   .social-link:hover { border-color: var(--red); background: var(--red); }
   .social-link svg { width: 20px; height: 20px; fill: var(--white); }
+  .contact-map-box { width: 100%; aspect-ratio: 4/3; background: var(--black-card); border: 1px solid var(--border); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; }
+  .contact-map-box span.pin { color: var(--red); }
+  .contact-map-box span.pin svg { width: 44px; height: 44px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .contact-map-box span.place { color: var(--gray); font-size: 0.95rem; font-weight: 600; }
+  .contact-map-box span.sub { color: var(--gray-dark); font-size: 0.82rem; }
 
   footer { border-top: 1px solid var(--border); padding: 3rem clamp(1.2rem, 4vw, 3rem) 1.5rem; background: var(--black); }
   .footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 2.5rem; }
   .footer-brand img { height: 44px; margin-bottom: 0.8rem; }
   .footer-brand p { font-size: 0.82rem; color: var(--gray-dark); max-width: 280px; line-height: 1.5; }
-  .footer-col h4 { font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 2px; color: var(--gray-dark); margin-bottom: 0.9rem; }
+  .footer-col h4 { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 2px; color: var(--gray-dark); margin-bottom: 0.9rem; }
   .footer-col a { display: block; font-size: 0.85rem; color: var(--gray); padding: 0.25rem 0; transition: color var(--transition); }
   .footer-col a:hover { color: var(--red); }
   .footer-affiliation { max-width: var(--max-w); margin: 2.5rem auto 0; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 1.2rem; flex-wrap: wrap; }
@@ -200,8 +204,7 @@
     .events-grid { grid-template-columns: 1fr; }
     .hero-logo { width: 130px; }
     .photo-strip { grid-template-columns: 1fr; }
-    .wwd-list { grid-template-columns: 1fr; }
-    .wwd-item, .wwd-item:nth-child(odd), .wwd-item:nth-child(even) { padding: 1.5rem 0; border-right: none; }
+    .pro-grid { grid-template-columns: 1fr; }
   }
 
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -222,12 +225,13 @@
   <div class="nav-links" id="navLinks">
     <a href="#about">About</a>
     <div class="dropdown">
-      <a href="#events">What We Do</a>
+      <a href="#events">Events</a>
       <div class="dropdown-menu">
-        <a href="#events">What We Do</a>
+        <a href="#events">All Events</a>
         <a href="#photos">Gallery</a>
       </div>
     </div>
+    <a href="#professional">Professional</a>
     <a href="fencing.html">Fencing Hire</a>
     <a href="merch.html">Merch</a>
     <a href="#sponsors">Sponsors</a>
@@ -295,60 +299,34 @@
 </section>
 
 <!-- PROFESSIONAL & ACADEMIC -->
-<!-- WHAT WE DO (events + professional/academic, merged) -->
-<section id="events" class="wwd-section">
+<section class="pro-section" id="professional">
   <div class="section-inner">
-    <p class="section-label reveal">What We Do</p>
-    <h2 class="section-title reveal">What We Do</h2>
-    <p class="section-subtitle reveal">From festivals and formals to industry panels and academic advocacy — TUES runs the social calendar and supports students’ professional and academic lives.</p>
-
-    <!-- Event photos: image + plain name caption, no tags -->
-    <div class="events-grid">
-      <figure class="event-card reveal">
-        <div class="event-card-img" style="background-image:url('images/Laneway_1.jpg')"></div>
-        <figcaption>Engi Laneway Music &amp; Arts Festival</figcaption>
-      </figure>
-      <figure class="event-card reveal">
-        <div class="event-card-img" style="background-image:url('images/cocktail.jpg')"></div>
-        <figcaption>Pub Nights</figcaption>
-      </figure>
-      <figure class="event-card reveal">
-        <div class="event-card-img" style="background-image:url('images/Copy_of_Copy_of_Spectrum-26.JPG')"></div>
-        <figcaption>Suits, Scrubs &amp; Spanners</figcaption>
-      </figure>
-      <figure class="event-card reveal">
-        <div class="event-card-img" style="background-image:url('images/ball2.jpg')"></div>
-        <figcaption>Engineering Ball</figcaption>
-      </figure>
-      <figure class="event-card reveal">
-        <div class="event-card-img" style="background-image:url('images/awards.jpg')"></div>
-        <figcaption>Networking &amp; Industry Panels</figcaption>
-      </figure>
-      <figure class="event-card reveal">
-        <div class="event-card-img" style="background-image:url('images/sportdodgeball.jpg')"></div>
-        <figcaption>Sport</figcaption>
-      </figure>
-    </div>
-
-    <!-- Professional & academic: text lines with headings, no boxes/icons -->
-    <div class="wwd-list">
-      <div class="wwd-item reveal">
+    <p class="section-label reveal">Beyond the Events</p>
+    <h2 class="section-title reveal">Professional &amp; Academic</h2>
+    <p class="section-subtitle reveal">TUES isn't just about social events — we play an active role in supporting students' professional and academic journeys.</p>
+    <div class="pro-grid">
+      <div class="pro-card reveal">
+        <div class="pro-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21h20"/><path d="M4 21V10.5l5 3v-3l5 3V6.5h6V21"/><path d="M16.5 10.5h1.5M16.5 14h1.5M16.5 17.5h1.5"/></svg></div>
         <h3>Industry Networking</h3>
         <p>Panels, site visits and networking nights connecting students directly with engineering professionals and employers across Tasmania.</p>
       </div>
-      <div class="wwd-item reveal">
+      <div class="pro-card reveal">
+        <div class="pro-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20c.6-3.4 2.8-5.2 5.5-5.2s4.9 1.8 5.5 5.2"/><circle cx="17" cy="9.5" r="2.4"/><path d="M15.5 15.4c2.7.2 4.4 1.7 5 4.6"/></svg></div>
         <h3>Women in Engineering</h3>
         <p>Morning teas, mentoring and community-building events supporting and celebrating women in engineering at UTAS.</p>
       </div>
-      <div class="wwd-item reveal">
+      <div class="pro-card reveal">
+        <div class="pro-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 19.5a9 9 0 1 1 13.6 0"/><path d="M12 14l4.2-4.7"/><circle cx="12" cy="14" r="1.6"/></svg></div>
         <h3>FSAE</h3>
         <p>Supporting student-led technical projects like Formula SAE, where students design, build and race electric cars against other universities.</p>
       </div>
-      <div class="wwd-item reveal">
+      <div class="pro-card reveal">
+        <div class="pro-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4.5V3h6v1.5"/><path d="M9 10h6M9 13.5h6M9 17h3.5"/></svg></div>
         <h3>Student Consultation</h3>
-        <p>Engaging with the university on student experience, providing feedback on courses and representing engineering students’ interests.</p>
+        <p>Engaging with the university on student experience, providing feedback on courses and representing engineering students' interests.</p>
       </div>
-      <div class="wwd-item reveal">
+      <div class="pro-card reveal">
+        <div class="pro-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9.5L12 4.5l9.5 5L12 14.5z"/><path d="M6.5 12v4.4c0 1.2 2.4 2.6 5.5 2.6s5.5-1.4 5.5-2.6V12"/><path d="M21.5 9.5V15"/></svg></div>
         <h3>Careers &amp; Development</h3>
         <p>Workshops, resume reviews and career fairs to help students prepare for the transition from university to industry.</p>
       </div>
@@ -356,6 +334,39 @@
   </div>
 </section>
 
+<!-- EVENTS -->
+<section id="events" style="background: var(--black-soft);">
+  <div class="section-inner">
+    <p class="section-label reveal">What We Do</p>
+    <h2 class="section-title reveal">Our Events</h2>
+    <p class="section-subtitle reveal">From massive festivals and formals to pub nights and sport — there's always something happening.</p>
+    <div class="events-grid">
+      <div class="event-card reveal">
+        <div class="event-card-img" style="background-image:url('images/Laneway_1.jpg')"><span class="tag">Flagship</span></div>
+        <div class="event-card-body"><h3>Engi Laneway Music &amp; Arts Festival</h3></div>
+      </div>
+      <div class="event-card reveal">
+        <div class="event-card-img" style="background-image:url('images/cocktail.jpg')"><span class="tag">Social</span></div>
+        <div class="event-card-body"><h3>Pub Nights</h3></div>
+      </div>
+      <div class="event-card reveal">
+        <div class="event-card-img" style="background-image:url('images/Copy_of_Copy_of_Spectrum-26.JPG')"><span class="tag">Collab</span></div>
+        <div class="event-card-body"><h3>Suits, Scrubs &amp; Spanners</h3></div>
+      </div>
+      <div class="event-card reveal">
+        <div class="event-card-img" style="background-image:url('images/ball2.jpg')"><span class="tag">Formal</span></div>
+        <div class="event-card-body"><h3>Engineering Ball</h3></div>
+      </div>
+      <div class="event-card reveal">
+        <div class="event-card-img" style="background-image:url('images/awards.jpg')"><span class="tag">Industry</span></div>
+        <div class="event-card-body"><h3>Networking &amp; Industry Panels</h3></div>
+      </div>
+      <div class="event-card reveal">
+        <div class="event-card-img" style="background-image:url('images/sportdodgeball.jpg')"><span class="tag">Sport</span></div>
+        <div class="event-card-body"><h3>Sport</h3></div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- PHOTO STRIP 1 -->
@@ -431,12 +442,15 @@
     <div class="contact-grid">
       <div class="reveal">
         <div class="contact-item">
+          <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg></div>
           <div><div class="label">Email</div><div class="value"><a href="mailto:president.engineering.utas@gmail.com">president.engineering.utas@gmail.com</a></div></div>
         </div>
         <div class="contact-item">
+          <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9.5L12 4.5l9.5 5L12 14.5z"/><path d="M6.5 12v4.4c0 1.2 2.4 2.6 5.5 2.6s5.5-1.4 5.5-2.6V12"/></svg></div>
           <div><div class="label">University</div><div class="value">University of Tasmania</div></div>
         </div>
         <div class="contact-item">
+          <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 16.5c.5-1.6 1.6-2.4 3-2.4s2.5.8 3 2.4M15.5 9.5h3M15.5 13h3"/></svg></div>
           <div><div class="label">Membership</div><div class="value"><a href="https://campus.hellorubric.com/?s=1439" target="_blank" rel="noopener noreferrer">Sign up via Rubric</a></div></div>
         </div>
         <div class="social-links">
@@ -447,6 +461,11 @@
             <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385h-3.047v-3.47h3.047v-2.642c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953h-1.514c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385c5.738-.9 10.126-5.864 10.126-11.854z"/></svg>
           </a>
         </div>
+      </div>
+      <div class="contact-map-box reveal">
+        <span class="pin"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5S5 15.7 5 10.2A7 7 0 0 1 19 10.2c0 5.5-7 11.3-7 11.3z"/><circle cx="12" cy="10" r="2.6"/></svg></span>
+        <span class="place">University of Tasmania</span>
+        <span class="sub">Hobart, TAS, Australia</span>
       </div>
     </div>
   </div>
